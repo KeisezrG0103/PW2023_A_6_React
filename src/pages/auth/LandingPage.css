@@ -1,0 +1,123 @@
+.spacing {
+    margin-bottom: 100px;
+}
+
+
+.title-head {
+    position: absolute;
+    max-width: 30vw;
+    color: white;
+    height: 70vh;
+    top: 15%;
+    left: 15%;
+}
+
+.title-head-2 {
+    position: absolute;
+    color: white;
+    width: 30vw;
+    height: 70vh;
+    top: 15%;
+    right: 15%;
+}
+
+.card {
+    background-color: #003399;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+/*    media query*/
+@media screen and (max-width: 768px) {
+    .title-head {
+        display: none;
+    }
+
+    .title-head-2 {
+        position: absolute;
+        color: white;
+        width: 50vw;
+        height: 70vh;
+        top: 10%;
+        left: 25%;
+
+    }
+
+    .none {
+        display: none !important;
+    }
+    .login {
+        
+    }
+
+}
+
+.navbar {
+    background-color: transparent !important;
+    /* Set the background color to transparent */
+    position: relative;
+    /* Set the position to relative */
+    z-index: 1000;
+    /* Set a high z-index to ensure the navbar is on top */
+    position: absolute;
+    top: 0;
+    width: 100vw;
+    padding-left: 10rem;
+
+}
+
+@keyframes slideInLeft {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInright {
+    0% {
+        transform: translateX(100%);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+.card {
+    animation-duration: 2s;
+    animation-timing-function: ease;
+    animation-delay: 0s;
+    animation-name: slideInLeft;
+}
+
+.card_right {
+    animation-duration: 2s;
+    animation-timing-function: ease;
+    animation-delay: 0s;
+    animation-name: slideInright;
+}
+
+/* .navbar-nav {
+    position: absolute;
+} */
+
+/*    maker spacing disappearn when <978*/
+
+@media screen and (max-width: 978px) {
+    .spacing {
+        display: none;
+    }
+}
+ .carousel-control-next-icon,
+ .carousel-control-prev-icon /*, .carousel-indicators */
+ {
+     filter: invert(100%);
+ }
+
+ .bg {
+    position: absolute;
+    
+ }
