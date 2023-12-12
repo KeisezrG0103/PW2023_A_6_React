@@ -32,6 +32,19 @@ const Index = () => {
     return window.location.reload(false);
   }
 
+  const deleteWebinar = async (id) => {
+    try {
+      await mutate(id);
+      toast.success("Webinar Deleted Successfully", {
+        duration: 3000,
+      });
+   
+      refetch();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div>
       <div className="d-flex justify-content-end my-4">
@@ -64,6 +77,8 @@ const Index = () => {
                     src={webinar?.thumbnail}
                     width="100px"
                     height="100px"
+                    
+                    
                     alt={`Thumbnail for ${webinar?.title}`}
                   />
                 </td>
@@ -75,7 +90,7 @@ const Index = () => {
                   <div className="d-flex justify-content-center">
                     <button
                       className="btn btn-danger mx-2"
-                      
+                      onClick={() => deleteWebinar(webinar?.id)}
                     >
                       Delete
                     </button>

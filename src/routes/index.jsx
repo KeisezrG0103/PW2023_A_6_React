@@ -12,6 +12,7 @@ import Index_Kursus from "../pages/Admin/Kursus";
 import Create from "../pages/Admin/Kursus/CreateKursus";
 import Update from "../pages/Admin/Kursus/UpdateKursus";
 import Index_Webinar from "../pages/Admin/Webinar/index";
+import CreateWebinar from "../pages/Admin/Webinar/CreateWebinar";
 
 const App = () => {
   const Token = useSelector((state) => state.auth.token);
@@ -37,8 +38,8 @@ const App = () => {
             <Route path="/admin/kursus/create" element={<Create />} />
             <Route path="/admin/kursus/:id" element={<Update />} />
             <Route path="/admin/webinar" element={<Index_Webinar />} />
-            
-            
+            <Route path="/admin/webinar/create" element={<CreateWebinar />} />
+            <Route path="/admin/webinar/:id" element={<Update />} />
           </Route>
         </Route>
       </Routes>
