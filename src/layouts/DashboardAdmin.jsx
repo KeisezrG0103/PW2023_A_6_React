@@ -3,6 +3,7 @@ import "./Dashboard.css";
 import { Link, Outlet } from "react-router-dom";
 import { IoPerson } from "react-icons/io5";
 import { useSelector } from "react-redux";
+import Webinar from ".././assets/webinar_.png";
 
 const DashboardAdmin = () => {
 
@@ -140,6 +141,20 @@ const DashboardAdmin = () => {
                 className="mx-4"
               />
               <span>Kursus</span>
+            </Link>
+          </li>
+
+
+          <li className="nav-item">
+            <Link className="nav-link" to="/admin/kursus">
+              <img
+                width={30}
+                height={30}
+                src={Webinar}
+                alt="gambar webinar"
+                className="mx-4"
+              />
+              <span>Webinar</span>
             </Link>
           </li>
           {/* Divider */}

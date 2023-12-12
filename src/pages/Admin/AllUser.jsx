@@ -1,9 +1,12 @@
 import { Table, Spinner } from "react-bootstrap";
 import { useGetUserQuery, useDeleteUserMutation } from "../../api/userApi";
 import { toast } from "react-hot-toast";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
 
 const AllUser = () => {
-  const { data, error, isLoading } = useGetUserQuery();
+  const { data, error, isLoading, isUninitialized } = useGetUserQuery();
   const [mutate, { isLoading: isDeleting }] = useDeleteUserMutation();
 
   if (isLoading)
@@ -15,8 +18,11 @@ const AllUser = () => {
       </div>
     );
 
-  if (error) return <h1>Error loading users. Please try again later.</h1>;
+  if (error) return window.location.reload(false);
 
+  if(isUninitialized) return null;
+
+  // if(isUninitialized) return null;
   const DeleteUser = async (id) => {
     try {
       await mutate(id);
@@ -29,6 +35,8 @@ const AllUser = () => {
       toast.error(error.response.message);
     }
   };
+
+ 
 
   return (
     <>

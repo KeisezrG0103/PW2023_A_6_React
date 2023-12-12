@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { authSuccess, authFail } from "../../slicers/auth/auth_slice.jsx";
 import toast from "react-hot-toast";
 import { useState } from "react";
+import { Token } from "../../api/userApi.jsx";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -22,17 +23,14 @@ const Login = () => {
 
       setRole(response.user.role);
 
-      localStorage.setItem("Token", response.token);
+      
 
-      console.log(response.token);
+      console.log(response.user.role);
 
-      // Use the updated role state in the callback passed to setRole
-      if (response.user.role === "user") {
+      if (response.user.role == "user") {
         navigate("/user");
-      } else if (response.user.role === "admin") {
+      } else if (response.user.role == "admin") {
         navigate("/admin/dashboard");
-      } else {
-        navigate("/");
       }
     } catch (error) {
       dispatch(authFail(error.response.message));
