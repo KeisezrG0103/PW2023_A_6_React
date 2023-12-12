@@ -71,14 +71,13 @@ const Index = () => {
             {data?.webinar.map((webinar, index) => (
               <tr key={webinar?.id}>
                 <td>{index + 1}</td>
-                {/* aspect ratio 1:3 */}
                 <td>
                   <img
                     src={webinar?.thumbnail}
                     width="100px"
                     height="100px"
                     
-                    
+
                     alt={`Thumbnail for ${webinar?.title}`}
                   />
                 </td>
