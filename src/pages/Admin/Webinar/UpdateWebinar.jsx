@@ -3,7 +3,7 @@ import { Button, Card, Col, Form, Row } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useGetWebinarByIdQuery, useUpdateWebinarMutation } from "../../../api/webinarApi";
 import { useParams } from "react-router-dom";
-import { toast } from "react-hot-toast";
+import { toast } from "react-hot-toast"; 
 import { useNavigate } from "react-router-dom";
 
 
@@ -35,19 +35,19 @@ const UpdateWebinar = () => {
 
   const onSubmit = async (data) => {
     
-    data = {
-      title: data.title,
-      pengisi_acara: data.pengisi_acara,
-      tanggal: data.tanggal,
-      content: data.content,
-      thumbnail: data.thumbnail[0],
-    }
+    const formData = new FormData();
+    formData.append("title", data.title);
+    formData.append("pengisi_acara", data.pengisi_acara);
+    formData.append("tanggal", data.tanggal);
+    formData.append("content", data.content);
+    formData.append("thumbnail", data.thumbnail[0]);
+    formData.append("_method", "PUT");
+
+
     
 
     try {
-      console.log(data);
-      mutate({id, data});
-
+      await mutate({id, data: formData});
       toast.success("Webinar berhasil diupdate");
       navigate("/admin/webinar");
 

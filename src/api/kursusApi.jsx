@@ -56,7 +56,7 @@ export const kursusApi = createApi({
     updateKursus: builder.mutation({
       query: ({ id, data }) => ({
         url: `${KURSUS}/${id}`,
-        method: "PATCH",
+        method: "POST",
         headers: {
           Authorization: `Bearer ${Token}`,
         },

@@ -53,7 +53,7 @@ export const webinarApi = createApi({
     updateWebinar: builder.mutation({
       query: ({ id, data }) => ({
         url: `${WEBINAR}/${id}`,
-        method: "PUT",
+        method: "POST",
         headers: {
           Authorization: `Bearer ${Token}`,
         },

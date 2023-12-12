@@ -33,20 +33,19 @@ const CreateUpdateKursus = () => {
     }
   }, [data, setValue]);
 
-  const onSubmit = async () => {
+  const onSubmit = async (data) => {
     
-    const formData = getValues();
-    
-    const data = {
-      title: formData.title,
-      author: formData.author,
-      bahasa_pemrograman: formData.bahasa_pemrograman,
-      content: formData.content,
-      thumbnail: formData.thumbnail[0],
-    }
+    const formData = new FormData();
+    formData.append("title", data.title);
+    formData.append("author", data.author);
+    formData.append("bahasa_pemrograman", data.bahasa_pemrograman);
+    formData.append("content", data.content);
+    formData.append("thumbnail", data.thumbnail[0]);
+    formData.append("_method", "PUT");
+
 
     try{
-      mutate({id, data});
+      mutate({id, data: formData});
       
       console.log(data);
       toast.success("Kursus berhasil diupdate");
