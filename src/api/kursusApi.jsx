@@ -1,4 +1,4 @@
-import { URL, GET_KURSUS, DELETE_KURSUS } from "../constant/uri";
+import { URL, KURSUS } from "../constant/uri";
 import { fetchBaseQuery, createApi } from "@reduxjs/toolkit/query/react";
 import { Token } from "./userApi";
 
@@ -15,7 +15,7 @@ export const kursusApi = createApi({
   endpoints: (builder) => ({
     getKursus: builder.query({
       query: () => ({
-        url: GET_KURSUS,
+        url: KURSUS,
         method: "GET",
         headers: {
           Authorization: `Bearer ${Token}`,
@@ -24,7 +24,7 @@ export const kursusApi = createApi({
     }),
     deleteKursus: builder.mutation({
       query: (id) => ({
-        url: `${DELETE_KURSUS}/${id}`,
+        url: `${KURSUS}/${id}`,
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${Token}`,
@@ -34,7 +34,7 @@ export const kursusApi = createApi({
 
     createKursus: builder.mutation({
       query: (data) => ({
-        url: GET_KURSUS,
+        url: KURSUS,
         method: "POST",
         headers: {
           Authorization: `Bearer ${Token}`,
@@ -45,7 +45,7 @@ export const kursusApi = createApi({
 
     getKursusById: builder.query({
       query: (id) => ({
-        url: `${GET_KURSUS}/${id}`,
+        url: `${KURSUS}/${id}`,
         method: "GET",
         headers: {
           Authorization: `Bearer ${Token}`,
@@ -55,7 +55,7 @@ export const kursusApi = createApi({
 
     updateKursus: builder.mutation({
       query: ({ id, data }) => ({
-        url: `${GET_KURSUS}/${id}`,
+        url: `${KURSUS}/${id}`,
         method: "PATCH",
         headers: {
           Authorization: `Bearer ${Token}`,

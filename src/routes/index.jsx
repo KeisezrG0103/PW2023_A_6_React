@@ -8,9 +8,10 @@ import ProtectedRoutes from "./ProtectedRoutes";
 import { Routes } from "react-router-dom";
 import { useSelector } from "react-redux";
 import AllUser from "../pages/Admin/AllUser";
-import Index from "../pages/Admin/Kursus";
+import Index_Kursus from "../pages/Admin/Kursus";
 import Create from "../pages/Admin/Kursus/CreateKursus";
 import Update from "../pages/Admin/Kursus/UpdateKursus";
+import Index_Webinar from "../pages/Admin/Webinar/index";
 
 const App = () => {
   const Token = useSelector((state) => state.auth.token);
@@ -32,9 +33,12 @@ const App = () => {
         <Route path="/admin" element={<ProtectedRoutes token={Token} />}>
           <Route path="/admin" element={<DashboardAdmin />}>
             <Route path="/admin/dashboard" element={<AllUser />} />
-            <Route path="/admin/kursus" element={<Index />} />
+            <Route path="/admin/kursus" element={<Index_Kursus />} />
             <Route path="/admin/kursus/create" element={<Create />} />
             <Route path="/admin/kursus/:id" element={<Update />} />
+            <Route path="/admin/webinar" element={<Index_Webinar />} />
+            
+            
           </Route>
         </Route>
       </Routes>

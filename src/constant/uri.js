@@ -8,7 +8,7 @@ export const DELETE_USER = "/user";
 
 
 export const KURSUS = "/kursus";
-export const DELETE_KURSUS = "/kursus";
-export const GET_KURSUS = "/kursus";
-export const UPDATE_KURSUS = "/kursus";
+
+
+export const WEBINAR = "/webinar";
 

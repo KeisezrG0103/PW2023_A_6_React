@@ -1,8 +1,6 @@
-import axios from "axios";
 import { URL, ADMIN, USER, DELETE_USER } from "../constant/uri";
-import { redirect } from "react-router-dom";
 import { fetchBaseQuery, createApi } from "@reduxjs/toolkit/query/react";
-import { useSelector } from "react-redux";
+
 
 export const Token = localStorage.getItem("Token");
 

@@ -30,7 +30,6 @@ const CreateUpdateKursus = () => {
       setValue("author", data.kursus.author);
       setValue("bahasa_pemrograman", data.kursus.bahasa_pemrograman);
       setValue("content", data.kursus.content);
-      // Set other field values as needed
     }
   }, [data, setValue]);
 

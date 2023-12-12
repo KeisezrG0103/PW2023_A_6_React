@@ -144,7 +144,7 @@ const DashboardAdmin = () => {
           </li>
 
           <li className="nav-item">
-            <Link className="nav-link" to="/admin/kursus">
+            <Link className="nav-link" to="/admin/webinar">
               <img
                 width={30}
                 height={30}
