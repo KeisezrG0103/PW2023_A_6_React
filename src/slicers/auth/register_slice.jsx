@@ -21,9 +21,13 @@ const registerSlice = createSlice({
             state.loading = false;
         },
         registerFail: (state, action) => {
-            state.error = action.payload;
+            if (action.payload instanceof Error) {
+              state.error = action.payload.message; // Set only the error message
+            } else {
+              state.error = action.payload; // Set the payload as is
+            }
             state.loading = false;
-        },
+          },
         clearError: (state) => {
             state.error = null;
         },

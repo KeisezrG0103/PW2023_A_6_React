@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 export const Token = localStorage.getItem("Token");
 
 export const getUser = createApi({
-    reducerPath: USER,
+    reducerPath: "getUser",
     baseQuery: fetchBaseQuery(
       {
         baseUrl: URL,

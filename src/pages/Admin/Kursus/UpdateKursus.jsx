@@ -1,34 +1,62 @@
 import Card from "react-bootstrap/Card";
 import { bahasaPemrograman } from "../../../constant/BahasaPemrograman";
 import { Form, Row, Col, Button } from "react-bootstrap";
-import { useForm } from "react-hook-form";
-import {
-  useGetKursusByIdQuery,
-  useUpdateKursusMutation
-} from "../../../api/kursusApi";
+import { useGetKursusByIdQuery, useUpdateKursusMutation } from "../../../api/kursusApi";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import { useEffect } from "react";
+import { useEffect,useState } from "react";
 import { useParams } from "react-router-dom";
+import { useForm } from "react-hook-form";
 
 const CreateUpdateKursus = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-    setError,
+    setValue,
+    getValues,
   } = useForm();
   const navigate = useNavigate();
 
   const [mutate, { isLoading }] = useUpdateKursusMutation();
   const id = useParams().id;
   console.log(id);
-  const { data, isLoading: isLoadingGetKursusById } = useGetKursusByIdQuery(id);
+  const { data, isLoading: isLoadingGetKursusById,refetch } = useGetKursusByIdQuery(id);
 
-  
+  useEffect(() => {
+    refetch();
+    if (data?.kursus) {
+      setValue("title", data.kursus.title);
+      setValue("author", data.kursus.author);
+      setValue("bahasa_pemrograman", data.kursus.bahasa_pemrograman);
+      setValue("content", data.kursus.content);
+      // Set other field values as needed
+    }
+  }, [data, setValue]);
 
-  const onSubmit = async (data) => {
+  const onSubmit = async () => {
     
+    const formData = getValues();
+    
+    const data = {
+      title: formData.title,
+      author: formData.author,
+      bahasa_pemrograman: formData.bahasa_pemrograman,
+      content: formData.content,
+      thumbnail: formData.thumbnail[0],
+    }
+
+    try{
+      mutate({id, data});
+      
+      console.log(data);
+      toast.success("Kursus berhasil diupdate");
+      navigate("/admin/kursus");
+    }catch(error){
+      console.log(error);
+      toast.error("Kursus gagal diupdate");
+    }
+  
   };
 
   return (
@@ -38,21 +66,19 @@ const CreateUpdateKursus = () => {
           <strong>Create Kursus</strong>
         </Card.Header>
         <Card.Body>
-          <Form onSubmit={handleSubmit(onSubmit)}>
+          <Form onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
             <Row className="mb-3">
               <Col>
                 <Form.Control
                   placeholder="Title"
                   {...register("title")}
                 />
-
               </Col>
               <Col>
                 <Form.Control
                   placeholder="Author"
                   {...register("author")}
                 />
-
               </Col>
               <Col>
                 <Form.Select
@@ -66,7 +92,6 @@ const CreateUpdateKursus = () => {
                     </option>
                   ))}
                 </Form.Select>
-
               </Col>
             </Row>
 
@@ -76,7 +101,6 @@ const CreateUpdateKursus = () => {
                 type="file"
                 {...register("thumbnail")}
               />
-
             </Form.Group>
 
             <Form.Group controlId="content" className="mb-3 my-2">
@@ -86,7 +110,6 @@ const CreateUpdateKursus = () => {
                 rows={10}
                 {...register("content")}
               />
-
             </Form.Group>
 
             <Button variant="primary" type="submit" disabled={isLoading}>
