@@ -6,7 +6,6 @@ import { useSelector } from "react-redux";
 import Webinar from ".././assets/webinar_.png";
 
 const DashboardAdmin = () => {
-
   const { user } = useSelector((state) => state.auth);
 
   console.log(user);
@@ -143,7 +142,6 @@ const DashboardAdmin = () => {
               <span>Kursus</span>
             </Link>
           </li>
-
 
           <li className="nav-item">
             <Link className="nav-link" to="/admin/kursus">
@@ -458,8 +456,7 @@ const DashboardAdmin = () => {
               </button>
             </div>
             <div className="modal-body">
-              Select Logout below if you are ready to end your current
-              session.
+              Select Logout below if you are ready to end your current session.
             </div>
             <div className="modal-footer">
               <button

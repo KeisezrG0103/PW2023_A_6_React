@@ -7,43 +7,42 @@ import { useSelector } from "react-redux";
 export const Token = localStorage.getItem("Token");
 
 export const getUser = createApi({
-    reducerPath: "getUser",
-    baseQuery: fetchBaseQuery(
-      {
-        baseUrl: URL,
+  reducerPath: "getUser",
+  baseQuery: fetchBaseQuery(
+    {
+      baseUrl: URL,
+    },
+    {
+      prepareHeaders: (headers) => {
+        headers.set("Authorization", `Bearer ${Token}`);
+        return headers;
       },
-      {
-        prepareHeaders: (headers) => {
-          headers.set("Authorization", `Bearer ${Token}`);
-          return headers;
+    }
+  ),
+
+  tagTypes: ["User"],
+  endpoints: (builder) => ({
+    getUser: builder.query({
+      query: () => ({
+        url: USER,
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${Token}`,
         },
-      }
-    ),
-  
-    tagTypes: ["User"],
-    endpoints: (builder) => ({
-      getUser: builder.query({
-        query: () => ({
-          url: USER,
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${Token}`,
-          },
-        }),
-      }),
-  
-      deleteUser: builder.mutation({
-        query: (id) => ({
-          url: `${DELETE_USER}/${id}`,
-          method: "DELETE",
-          headers: {
-            Authorization: `Bearer ${Token}`,
-          },
-        }),
       }),
     }),
-  });
-  
+
+    deleteUser: builder.mutation({
+      query: (id) => ({
+        url: `${DELETE_USER}/${id}`,
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${Token}`,
+        },
+      }),
+    }),
+  }),
+});
 
 export const { useGetUserQuery, useDeleteUserMutation } = getUser;
 export default getUser;

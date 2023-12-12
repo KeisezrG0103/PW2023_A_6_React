@@ -5,7 +5,6 @@ import { useForm } from "react-hook-form";
 import { authSuccess, authFail } from "../../slicers/auth/auth_slice.jsx";
 import toast from "react-hot-toast";
 import { useState } from "react";
-import { Token } from "../../api/userApi.jsx";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -22,8 +21,6 @@ const Login = () => {
       toast.success(response.message);
 
       setRole(response.user.role);
-
-      
 
       console.log(response.user.role);
 

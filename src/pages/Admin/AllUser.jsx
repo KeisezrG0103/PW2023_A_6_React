@@ -1,8 +1,7 @@
 import { Table, Spinner } from "react-bootstrap";
 import { useGetUserQuery, useDeleteUserMutation } from "../../api/userApi";
 import { toast } from "react-hot-toast";
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+
 
 
 const AllUser = () => {
