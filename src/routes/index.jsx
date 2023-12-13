@@ -2,7 +2,7 @@ import { BrowserRouter, Route } from "react-router-dom";
 import LandingPage from "../pages/auth/LandingPage";
 import Login from "../pages/auth/Login";
 import Register from "../pages/auth/Register";
-import User from "../pages/User";
+import User from "../pages/User/Home";
 import DashboardAdmin from "../layouts/DashboardAdmin";
 import ProtectedRoutes from "./ProtectedRoutes";
 import { Routes } from "react-router-dom";
@@ -14,6 +14,8 @@ import Update from "../pages/Admin/Kursus/UpdateKursus";
 import Index_Webinar from "../pages/Admin/Webinar/index";
 import CreateWebinar from "../pages/Admin/Webinar/CreateWebinar";
 import UpdateWebinar from "../pages/Admin/Webinar/UpdateWebinar";
+import Home from "../pages/User/Home";
+import UserLayout from "../layouts/UserLayout";
 
 const App = () => {
   const Token = useSelector((state) => state.auth.token);
@@ -29,7 +31,10 @@ const App = () => {
         </Route>
 
         <Route path="/user" element={<ProtectedRoutes token={Token} />}>
-          <Route path="/user" element={<User />} />
+          <Route path="/user" element={<UserLayout/>} >
+            <Route path="/user/home" element={<Home />} />
+
+          </Route> 
         </Route>
 
         <Route path="/admin" element={<ProtectedRoutes token={Token} />}>

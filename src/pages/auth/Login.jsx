@@ -25,7 +25,7 @@ const Login = () => {
       console.log(response.user.role);
 
       if (response.user.role == "user") {
-        navigate("/user");
+        navigate("/user/home");
       } else if (response.user.role == "admin") {
         navigate("/admin/dashboard");
       }
