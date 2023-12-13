@@ -1,10 +1,13 @@
 import Card from "react-bootstrap/Card";
 import { bahasaPemrograman } from "../../../constant/BahasaPemrograman";
 import { Form, Row, Col, Button } from "react-bootstrap";
-import { useGetKursusByIdQuery, useUpdateKursusMutation } from "../../../api/kursusApi";
+import {
+  useGetKursusByIdQuery,
+  useUpdateKursusMutation,
+} from "../../../api/kursusApi";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
@@ -21,7 +24,11 @@ const CreateUpdateKursus = () => {
   const [mutate, { isLoading }] = useUpdateKursusMutation();
   const id = useParams().id;
   console.log(id);
-  const { data, isLoading: isLoadingGetKursusById,refetch } = useGetKursusByIdQuery(id);
+  const {
+    data,
+    isLoading: isLoadingGetKursusById,
+    refetch,
+  } = useGetKursusByIdQuery(id);
 
   useEffect(() => {
     refetch();
@@ -34,7 +41,6 @@ const CreateUpdateKursus = () => {
   }, [data, setValue]);
 
   const onSubmit = async (data) => {
-    
     const formData = new FormData();
     formData.append("title", data.title);
     formData.append("author", data.author);
@@ -43,18 +49,16 @@ const CreateUpdateKursus = () => {
     formData.append("thumbnail", data.thumbnail[0]);
     formData.append("_method", "PUT");
 
+    try {
+      mutate({ id, data: formData });
 
-    try{
-      mutate({id, data: formData});
-      
       console.log(data);
       toast.success("Kursus berhasil diupdate");
       navigate("/admin/kursus");
-    }catch(error){
+    } catch (error) {
       console.log(error);
       toast.error("Kursus gagal diupdate");
     }
-  
   };
 
   return (
@@ -67,17 +71,13 @@ const CreateUpdateKursus = () => {
           <Form onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
             <Row className="mb-3">
               <Col>
-                <Form.Control
-                  placeholder="Title"
-                  {...register("title")}
-                />
+                <Form.Control placeholder="Title" {...register("title")} />
               </Col>
               <Col>
-                <Form.Control
-                  placeholder="Author"
-                  {...register("author")}
-                />
+                <Form.Control placeholder="Author" {...register("author")} />
               </Col>
+
+
               <Col>
                 <Form.Select
                   aria-label="BahasaPemrograman"
@@ -95,19 +95,12 @@ const CreateUpdateKursus = () => {
 
             <Form.Group controlId="thumbnail" className="mb-3 my-2">
               <Form.Label>Thumbnail</Form.Label>
-              <Form.Control
-                type="file"
-                {...register("thumbnail")}
-              />
+              <Form.Control type="file" {...register("thumbnail")} />
             </Form.Group>
 
             <Form.Group controlId="content" className="mb-3 my-2">
               <Form.Label>Content</Form.Label>
-              <Form.Control
-                as="textarea"
-                rows={10}
-                {...register("content")}
-              />
+              <Form.Control as="textarea" rows={10} {...register("content")} />
             </Form.Group>
 
             <Button variant="primary" type="submit" disabled={isLoading}>

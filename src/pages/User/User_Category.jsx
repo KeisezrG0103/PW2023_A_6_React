@@ -1,16 +1,25 @@
-import React from "react";
 import { bahasaPemrograman } from "../../constant/BahasaPemrograman";
-import { useSpring, animated } from "react-spring";
 import { useNavigate, useParams } from "react-router-dom";
 import { Container, Card } from "react-bootstrap";
 import { useGetKursusByBahasaQuery } from "../../api/kursusApi";
 import { Spinner } from "react-bootstrap";
+import { useSelector } from "react-redux";
+import { useEffect,useState } from "react";
 const User_Category = () => {
   const param = useParams();
   const category = param.kategori;
 
   const { data, error, isLoading, refetch } =
     useGetKursusByBahasaQuery(category);
+
+  const [id_pembelian, setId_pembelian] = useState(0);
+
+  console.log(id_pembelian);
+  const selector = useSelector((state) => state.auth.user);
+
+  useEffect(() => {
+    setId_pembelian(selector.id_pembelian);
+  }, [selector]);
 
   console.log(data);
 
@@ -31,9 +40,11 @@ const User_Category = () => {
         <h5>List of Course</h5>
 
         {isLoading ? (
-          <Spinner animation="border" role="status">
-            <span className="visually-hidden">Loading...</span>
-          </Spinner>
+          <div className="d-flex justify-content-center mt-3">
+            <Spinner animation="border" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </Spinner>
+          </div>
         ) : null}
 
         <div className="my-2 w-100">
@@ -42,15 +53,26 @@ const User_Category = () => {
               <Card.Body>
                 <Card.Title>{item.title}</Card.Title>
                 <Card.Text>{item.description}</Card.Text>
-                <Card.Img variant="top" src={item.thumbnail} />
-
-                <Card.Footer className="d-flex justify-content-end">
-                  <button className="btn btn-primary">Enroll</button>
-                </Card.Footer>
+                <Card.Img
+                  variant="top"
+                  src={item.thumbnail}
+                  style={{ width: "100%", height: "200px" }}
+                />
               </Card.Body>
+              <Card.Footer className="text-end">
+                <button
+                  className="btn btn-primary"
+                  {...(id_pembelian === 0 ? { disabled: true } : null)}
+                >
+                  {" "}
+                  Enroll{" "}
+                </button>
+              </Card.Footer>
             </Card>
           ))}
         </div>
+
+        {data?.kursus.length === 0 ? <h3>Belum ada data</h3> : null}
       </div>
     </Container>
   );

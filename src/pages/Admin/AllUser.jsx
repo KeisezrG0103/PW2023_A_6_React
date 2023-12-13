@@ -56,6 +56,7 @@ const AllUser = () => {
             <th>Email</th>
             <th>Education</th>
             <th>Coding Experience</th>
+            <th>id_pembelian</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -67,6 +68,7 @@ const AllUser = () => {
               <td>{user.email}</td>
               <td>{user.education}</td>
               <td>{user.coding_experience}</td>
+              <td>{user.id_pembelian}</td>
               <td>
                 <button
                   className="btn btn-danger"

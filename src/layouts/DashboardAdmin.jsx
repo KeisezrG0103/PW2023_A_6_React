@@ -34,36 +34,28 @@ const DashboardAdmin = () => {
   useEffect(() => {
     const handleToggle = () => {
       document.body.classList.toggle("sidebar-toggled");
-      const sidebar = document.querySelector(".sidebar");
-      if (sidebar) {
-        sidebar.classList.toggle("toggled");
-        if (sidebar.classList.contains("toggled")) {
-          document
-            .querySelectorAll(".sidebar .collapse")
-            .forEach((collapse) => {
-              collapse.classList.remove("show");
-            });
-        }
+      document.querySelector(".sidebar").classList.toggle("toggled");
+      if (document.querySelector(".sidebar").classList.contains("toggled")) {
+        document.querySelectorAll(".sidebar .collapse").forEach((collapse) => {
+          collapse.classList.remove("show");
+        });
       }
     };
 
     const handleResize = () => {
-      const collapses = document.querySelectorAll(".sidebar .collapse");
       if (window.innerWidth < 768) {
-        collapses.forEach((collapse) => {
+        document.querySelectorAll(".sidebar .collapse").forEach((collapse) => {
           collapse.classList.remove("show");
         });
       }
 
-      const sidebar = document.querySelector(".sidebar");
       if (
         window.innerWidth < 480 &&
-        sidebar &&
-        !sidebar.classList.contains("toggled")
+        !document.querySelector(".sidebar").classList.contains("toggled")
       ) {
         document.body.classList.add("sidebar-toggled");
-        sidebar.classList.add("toggled");
-        collapses.forEach((collapse) => {
+        document.querySelector(".sidebar").classList.add("toggled");
+        document.querySelectorAll(".sidebar .collapse").forEach((collapse) => {
           collapse.classList.remove("show");
         });
       }
@@ -74,15 +66,20 @@ const DashboardAdmin = () => {
       const scrollButton = document.querySelector(".scroll-to-top");
 
       if (scrollButton) {
-        scrollButton.style.display = scrollDistance > 100 ? "block" : "none";
+        if (scrollDistance > 100) {
+          scrollButton.style.display = "block";
+        } else {
+          scrollButton.style.display = "none";
+        }
       }
     };
 
     const handleScrollToTop = (e) => {
       e.preventDefault();
       const $anchor = e.target;
-      const targetId = $anchor.getAttribute("href");
-      const targetElement = document.querySelector(targetId);
+      const targetElement = document.querySelector(
+        $anchor.getAttribute("href")
+      );
 
       if (targetElement) {
         window.scrollTo({
@@ -92,36 +89,25 @@ const DashboardAdmin = () => {
       }
     };
 
-    const sidebarToggle = document.getElementById("sidebarToggle");
-    const sidebarToggleTop = document.getElementById("sidebarToggleTop");
-
-    if (sidebarToggle) {
-      sidebarToggle.addEventListener("click", handleToggle);
-    }
-
-    if (sidebarToggleTop) {
-      sidebarToggleTop.addEventListener("click", handleToggle);
-    }
-
+    // Add event listeners
+    document
+      .getElementById("sidebarToggle")
+      .addEventListener("click", handleToggle);
+    document
+      .getElementById("sidebarToggleTop")
+      .addEventListener("click", handleToggle);
     window.addEventListener("resize", handleResize);
     window.addEventListener("scroll", handleScroll);
-    document.addEventListener("click", handleScrollToTop);
-
-    // Cleanup function to remove event listeners when the component is unmounted
-    return () => {
-      if (sidebarToggle) {
-        sidebarToggle.removeEventListener("click", handleToggle);
+    document.addEventListener("click", (e) => {
+      if (e.target.classList.contains("scroll-to-top")) {
+        handleScrollToTop(e);
       }
-
-      if (sidebarToggleTop) {
-        sidebarToggleTop.removeEventListener("click", handleToggle);
-      }
-
-      window.removeEventListener("resize", handleResize);
-      window.removeEventListener("scroll", handleScroll);
-      document.removeEventListener("click", handleScrollToTop);
-    };
+    });
   }, []);
+
+ 
+
+
 
   return (
     <>
