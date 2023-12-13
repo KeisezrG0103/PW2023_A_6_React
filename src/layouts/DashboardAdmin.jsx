@@ -2,39 +2,68 @@ import React, { useEffect } from "react";
 import "./Dashboard.css";
 import { Link, Outlet } from "react-router-dom";
 import { IoPerson } from "react-icons/io5";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Webinar from ".././assets/webinar_.png";
+import { Button } from "react-bootstrap";
+import { Logout } from "../api/auth";
+import { useNavigate } from "react-router-dom";
+import { authLogout } from "../slicers/auth/auth_slice";
+import { useState } from "react";
+import { Modal } from "react-bootstrap";
 
 const DashboardAdmin = () => {
   const { user } = useSelector((state) => state.auth);
 
-  console.log(user);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const logout = async () => {
+    try {
+      dispatch(authLogout());
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     const handleToggle = () => {
       document.body.classList.toggle("sidebar-toggled");
-      document.querySelector(".sidebar").classList.toggle("toggled");
-      if (document.querySelector(".sidebar").classList.contains("toggled")) {
-        document.querySelectorAll(".sidebar .collapse").forEach((collapse) => {
-          collapse.classList.remove("show");
-        });
+      const sidebar = document.querySelector(".sidebar");
+      if (sidebar) {
+        sidebar.classList.toggle("toggled");
+        if (sidebar.classList.contains("toggled")) {
+          document
+            .querySelectorAll(".sidebar .collapse")
+            .forEach((collapse) => {
+              collapse.classList.remove("show");
+            });
+        }
       }
     };
 
     const handleResize = () => {
+      const collapses = document.querySelectorAll(".sidebar .collapse");
       if (window.innerWidth < 768) {
-        document.querySelectorAll(".sidebar .collapse").forEach((collapse) => {
+        collapses.forEach((collapse) => {
           collapse.classList.remove("show");
         });
       }
 
+      const sidebar = document.querySelector(".sidebar");
       if (
         window.innerWidth < 480 &&
-        !document.querySelector(".sidebar").classList.contains("toggled")
+        sidebar &&
+        !sidebar.classList.contains("toggled")
       ) {
         document.body.classList.add("sidebar-toggled");
-        document.querySelector(".sidebar").classList.add("toggled");
-        document.querySelectorAll(".sidebar .collapse").forEach((collapse) => {
+        sidebar.classList.add("toggled");
+        collapses.forEach((collapse) => {
           collapse.classList.remove("show");
         });
       }
@@ -45,20 +74,15 @@ const DashboardAdmin = () => {
       const scrollButton = document.querySelector(".scroll-to-top");
 
       if (scrollButton) {
-        if (scrollDistance > 100) {
-          scrollButton.style.display = "block";
-        } else {
-          scrollButton.style.display = "none";
-        }
+        scrollButton.style.display = scrollDistance > 100 ? "block" : "none";
       }
     };
 
     const handleScrollToTop = (e) => {
       e.preventDefault();
       const $anchor = e.target;
-      const targetElement = document.querySelector(
-        $anchor.getAttribute("href")
-      );
+      const targetId = $anchor.getAttribute("href");
+      const targetElement = document.querySelector(targetId);
 
       if (targetElement) {
         window.scrollTo({
@@ -68,29 +92,31 @@ const DashboardAdmin = () => {
       }
     };
 
-    // Add event listeners
-    document
-      .getElementById("sidebarToggle")
-      .addEventListener("click", handleToggle);
-    document
-      .getElementById("sidebarToggleTop")
-      .addEventListener("click", handleToggle);
+    const sidebarToggle = document.getElementById("sidebarToggle");
+    const sidebarToggleTop = document.getElementById("sidebarToggleTop");
+
+    if (sidebarToggle) {
+      sidebarToggle.addEventListener("click", handleToggle);
+    }
+
+    if (sidebarToggleTop) {
+      sidebarToggleTop.addEventListener("click", handleToggle);
+    }
+
     window.addEventListener("resize", handleResize);
     window.addEventListener("scroll", handleScroll);
-    document.addEventListener("click", (e) => {
-      if (e.target.classList.contains("scroll-to-top")) {
-        handleScrollToTop(e);
-      }
-    });
+    document.addEventListener("click", handleScrollToTop);
 
-    // Clean up event listeners on component unmount
+    // Cleanup function to remove event listeners when the component is unmounted
     return () => {
-      document
-        .getElementById("sidebarToggle")
-        .removeEventListener("click", handleToggle);
-      document
-        .getElementById("sidebarToggleTop")
-        .removeEventListener("click", handleToggle);
+      if (sidebarToggle) {
+        sidebarToggle.removeEventListener("click", handleToggle);
+      }
+
+      if (sidebarToggleTop) {
+        sidebarToggleTop.removeEventListener("click", handleToggle);
+      }
+
       window.removeEventListener("resize", handleResize);
       window.removeEventListener("scroll", handleScroll);
       document.removeEventListener("click", handleScrollToTop);
@@ -233,7 +259,7 @@ const DashboardAdmin = () => {
                   </div>
                 </li>
                 {/* Nav Item - Alerts */}
-                
+
                 {/* Nav Item - Messages */}
                 {/* Nav Item - User Information */}
                 <li className="nav-item dropdown d-flex align-items-start">
@@ -259,15 +285,10 @@ const DashboardAdmin = () => {
                     className="dropdown-menu dropdown-menu-center  shadow animated--grow-in"
                     aria-labelledby="userDropdown"
                   >
-                    <a
-                      className="dropdown-item"
-                      href="#"
-                      data-bs-toggle="modal"
-                      data-bs-target="#logoutModal"
-                    >
+                    <Button variant="transparent" onClick={handleShow}>
                       <i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400" />
                       Logout
-                    </a>
+                    </Button>
                   </div>
                 </li>
               </ul>
@@ -298,47 +319,20 @@ const DashboardAdmin = () => {
         <i className="fas fa-angle-up" />
       </a>
       {/* Logout Modal*/}
-      <div
-        className="modal fade"
-        id="logoutModal"
-        tabIndex={-1}
-        role="dialog"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
-        <div className="modal-dialog" role="document">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title" id="exampleModalLabel">
-                Ready to Leave?
-              </h5>
-              <button
-                className="close"
-                type="button"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              >
-                <span aria-hidden="true">×</span>
-              </button>
-            </div>
-            <div className="modal-body">
-              Select Logout below if you are ready to end your current session.
-            </div>
-            <div className="modal-footer">
-              <button
-                className="btn btn-danger"
-                type="button"
-                data-bs-dismiss="modal"
-              >
-                Cancel
-              </button>
-              <a className="btn btn-primary" href="{{url('/')}}">
-                Logout
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Logout</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Apakah anda yakin akan logout?</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="danger" onClick={logout}>
+            Logout
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 };

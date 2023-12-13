@@ -1,6 +1,8 @@
 import axios from "axios";
-import { URL, LOGIN, REGISTER } from "../constant/uri";
+import { URL, LOGIN, REGISTER, LOGOUT } from "../constant/uri";
 import { redirect } from "react-router-dom";
+import { Token } from "./userApi";
+
 
 export const login = async (email, password) => {
   const data = {
@@ -30,3 +32,14 @@ export const logout = () => {
   localStorage.removeItem("token");
   redirect("/");
 };
+
+
+export const Logout = () => {
+  const response = axios.get(URL + LOGOUT, {
+    headers: {
+      Authorization: `Bearer ${Token}`,
+    },
+  });
+  return response.data;
+}
+

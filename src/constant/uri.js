@@ -5,6 +5,7 @@ export const REGISTER = "/register";
 export const ADMIN = "/admin";
 export const USER = "/users";
 export const DELETE_USER = "/user";
+export const LOGOUT = "/logout";
 
 
 export const KURSUS = "/kursus";
