@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Button, Table } from "react-bootstrap";
+import { Button, Table, Pagination } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import {
   useGetKursusQuery,
@@ -13,6 +13,21 @@ import TruncatedContent from "../../../component/TruncatedContent";
 const Index = () => {
   const { data, error, isLoading, refetch } = useGetKursusQuery();
   const [mutate, { isLoading: isDeleting }] = useDeleteKursusMutation();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [kursusPerPage, setKursusPerPage] = useState(5);
+
+  const nPage = Math.ceil(data?.kursus.length / kursusPerPage);
+  const indexOfLastKursus = currentPage * kursusPerPage;
+  const indexOfFirstKursus = indexOfLastKursus - kursusPerPage;
+
+  const currentKursus = data?.kursus.slice(
+    indexOfFirstKursus,
+    indexOfLastKursus
+  );
+
+  const handlePageClick = (selectedPage) => {
+    setCurrentPage(selectedPage);
+  };
 
   useEffect(() => {
     refetch();
@@ -102,6 +117,28 @@ const Index = () => {
           </tbody>
         </Table>
       )}
+
+      <div className="d-flex justify-content-center">
+        <Pagination>
+          <Pagination.Prev
+            onClick={() => handlePageClick(currentPage - 1)}
+            disabled={currentPage === 1}
+          />
+          {Array.from({ length: nPage }, (_, i) => (
+            <Pagination.Item
+              key={i}
+              active={i + 1 === currentPage}
+              onClick={() => handlePageClick(i + 1)}
+            >
+              {i + 1}
+            </Pagination.Item>
+          ))}
+          <Pagination.Next
+            onClick={() => handlePageClick(currentPage + 1)}
+            disabled={currentPage === nPage}
+          />
+        </Pagination>
+      </div>
     </div>
   );
 };

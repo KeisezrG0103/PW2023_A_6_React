@@ -1,12 +1,24 @@
-import { Table, Spinner } from "react-bootstrap";
+import { Table, Spinner, Pagination } from "react-bootstrap";
 import { useGetUserQuery, useDeleteUserMutation } from "../../api/userApi";
 import { toast } from "react-hot-toast";
-
-
+import { useState } from "react";
 
 const AllUser = () => {
   const { data, error, isLoading, isUninitialized } = useGetUserQuery();
   const [mutate, { isLoading: isDeleting }] = useDeleteUserMutation();
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [userPerPage, setUserPerPage] = useState(5);
+
+  const nPage = Math.ceil(data?.users.length / userPerPage);
+  const indexOfLastUser = currentPage * userPerPage;
+  const indexOfFirstUser = indexOfLastUser - userPerPage;
+
+  const currentUser = data?.users.slice(indexOfFirstUser, indexOfLastUser);
+
+  const handlePageClick = (selectedPage) => {
+    setCurrentPage(selectedPage);
+  };
 
   if (isLoading)
     return (
@@ -19,7 +31,7 @@ const AllUser = () => {
 
   if (error) return window.location.reload(false);
 
-  if(isUninitialized) return null;
+  if (isUninitialized) return null;
 
   // if(isUninitialized) return null;
   const DeleteUser = async (id) => {
@@ -29,13 +41,10 @@ const AllUser = () => {
         duration: 3000, // 3 seconds
       });
       window.location.reload(false);
-
     } catch (error) {
       toast.error(error.response.message);
     }
   };
-
- 
 
   return (
     <>
@@ -71,6 +80,28 @@ const AllUser = () => {
           ))}
         </tbody>
       </Table>
+
+      <div className="d-flex justify-content-center">
+        <Pagination>
+          <Pagination.Prev
+            onClick={() => handlePageClick(currentPage - 1)}
+            disabled={currentPage === 1}
+          />
+          {Array.from({ length: nPage }, (_, i) => (
+            <Pagination.Item
+              key={i}
+              active={i + 1 === currentPage}
+              onClick={() => handlePageClick(i + 1)}
+            >
+              {i + 1}
+            </Pagination.Item>
+          ))}
+          <Pagination.Next
+            onClick={() => handlePageClick(currentPage + 1)}
+            disabled={currentPage === nPage}
+          />
+        </Pagination>
+      </div>
     </>
   );
 };

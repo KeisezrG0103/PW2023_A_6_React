@@ -1,22 +1,35 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   useGetWebinarQuery,
   useDeleteWebinarMutation,
 } from "../../../api/webinarApi";
-import { Spinner } from "react-bootstrap";
+import { Spinner, Table, Button, Pagination } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import TruncatedContent from "../../../component/TruncatedContent";
-import { Table, Button } from "react-bootstrap";
 
 const Index = () => {
   const { data, error, isLoading, refetch } = useGetWebinarQuery();
   const [mutate, { isLoading: isDeleting }] = useDeleteWebinarMutation();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [webinarPerPage, setWebinarPerPage] = useState(5);
 
-  console.log(data?.webinar);
+  const nPage = Math.ceil(data?.webinar.length / webinarPerPage);
+  const indexOfLastWebinar = currentPage * webinarPerPage;
+  const indexOfFirstWebinar = indexOfLastWebinar - webinarPerPage;
+
+  const currentWebinar = data?.webinar.slice(
+    indexOfFirstWebinar,
+    indexOfLastWebinar
+  );
+
   useEffect(() => {
     refetch();
   }, []);
+
+  const handlePageClick = (selectedPage) => {
+    setCurrentPage(selectedPage);
+  };
 
   if (isLoading) {
     return (
@@ -38,7 +51,7 @@ const Index = () => {
       toast.success("Webinar Deleted Successfully", {
         duration: 3000,
       });
-   
+
       refetch();
     } catch (error) {
       console.log(error);
@@ -55,53 +68,75 @@ const Index = () => {
       {data?.webinar.length === 0 ? (
         <h1>Belum ada data</h1>
       ) : (
-        <Table striped bordered hover>
-          <thead>
-            <tr>
-              <th>No</th>
-              <th>thumbnail</th>
-              <th>Title</th>
-              <th>Pengisi Acara</th>
-              <th>Tanggal</th>
-              <th>Content</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data?.webinar.map((webinar, index) => (
-              <tr key={webinar?.id}>
-                <td>{index + 1}</td>
-                <td>
-                  <img
-                    src={webinar?.thumbnail}
-                    width="100px"
-                    height="100px"
-                    
-
-                    alt={`Thumbnail for ${webinar?.title}`}
-                  />
-                </td>
-                <td>{webinar?.title}</td>
-                <td>{webinar?.pengisi_acara}</td>
-                <td>{webinar?.tanggal}</td>
-                <TruncatedContent content={webinar?.content} maxLength={10} />
-                <td>
-                  <div className="d-flex justify-content-center">
-                    <button
-                      className="btn btn-danger mx-2"
-                      onClick={() => deleteWebinar(webinar?.id)}
-                    >
-                      Delete
-                    </button>
-                    <Link to={`/admin/webinar/${webinar?.id}`}>
-                      <button className="btn btn-success">Edit</button>
-                    </Link>
-                  </div>
-                </td>
+        <>
+          <Table striped bordered hover>
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>thumbnail</th>
+                <th>Title</th>
+                <th>Pengisi Acara</th>
+                <th>Tanggal</th>
+                <th>Content</th>
+                <th>Action</th>
               </tr>
-            ))}
-          </tbody>
-        </Table>
+            </thead>
+            <tbody>
+              {currentWebinar.map((webinar, index) => (
+                <tr key={webinar?.id}>
+                  <td>{indexOfFirstWebinar + index + 1}</td>
+                  <td>
+                    <img
+                      src={webinar?.thumbnail}
+                      width="100px"
+                      height="100px"
+                      alt={`Thumbnail for ${webinar?.title}`}
+                    />
+                  </td>
+                  <td>{webinar?.title}</td>
+                  <td>{webinar?.pengisi_acara}</td>
+                  <td>{webinar?.tanggal}</td>
+                  <TruncatedContent content={webinar?.content} maxLength={10} />
+                  <td>
+                    <div className="d-flex justify-content-center">
+                      <button
+                        className="btn btn-danger mx-2"
+                        onClick={() => deleteWebinar(webinar?.id)}
+                      >
+                        Delete
+                      </button>
+                      <Link to={`/admin/webinar/${webinar?.id}`}>
+                        <button className="btn btn-success">Edit</button>
+                      </Link>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+          <div className="d-flex justify-content-center">
+            <Pagination>
+              <Pagination.Prev
+                onClick={() => handlePageClick(currentPage - 1)}
+                disabled={currentPage === 1}
+              />
+              {Array.from({ length: nPage }, (_, i) => (
+                <Pagination.Item
+                  key={i}
+                  active={i + 1 === currentPage}
+                  onClick={() => handlePageClick(i + 1)}
+                >
+                  {i + 1}
+                </Pagination.Item>
+              ))}
+              <Pagination.Next
+                onClick={() => handlePageClick(currentPage + 1)}
+                disabled={currentPage === nPage}
+              />
+              
+            </Pagination>
+          </div>
+        </>
       )}
     </div>
   );
