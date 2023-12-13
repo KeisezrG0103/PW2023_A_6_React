@@ -110,16 +110,16 @@ const DashboardAdmin = () => {
             className="sidebar-brand d-flex align-items-center justify-content-center"
             href="#"
           >
-            <div className="mx-3">PW_UTS</div>
+            <div className="mx-3">PW_UAS</div>
           </a>
           {/* Divider */}
           <hr className="sidebar-divider my-0" />
           {/* Nav Item - Dashboard */}
-          <li className="nav-item active">
-            <a className="nav-link" href="{{url('/dashboard')}}">
-              <span>Dashboard</span>
-            </a>
-          </li>
+          <div className="sidebar-heading text-center">
+            <h6>
+              <strong>Admin</strong>
+            </h6>
+          </div>
           {/* Nav Item - Pages Collapse Menu */}
           <li className="nav-item">
             <Link className="nav-link" to="/admin/dashboard">
@@ -233,139 +233,10 @@ const DashboardAdmin = () => {
                   </div>
                 </li>
                 {/* Nav Item - Alerts */}
-                <li className="nav-item dropdown no-arrow mx-1">
-                  <a
-                    className="nav-link dropdown-toggle"
-                    href="#"
-                    id="alertsDropdown"
-                    role="button"
-                    data-bs-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                  >
-                    <i className="fas fa-bell fa-fw" />
-                    {/* Counter - Alerts */}
-                    <span className="badge badge-danger badge-counter">3+</span>
-                  </a>
-                  {/* Dropdown - Alerts */}
-                  <div
-                    className="dropdown-list dropdown-menu dropdown-menu-end shadow animated--grow-in"
-                    aria-labelledby="alertsDropdown"
-                  >
-                    <h6 className="dropdown-header">Alerts</h6>
-                    <a
-                      className="dropdown-item d-flex align-items-center"
-                      href="#"
-                    >
-                      <div className="mr-3">
-                        <div className="icon-circle bg-primary">
-                          <i className="fas fa-book text-white" />
-                        </div>
-                      </div>
-                      <div>
-                        <div className="small text-gray-500">
-                          December 12, 2019
-                        </div>
-                        <span className="font-weight-bold">
-                          C++ Course is arrived!!
-                        </span>
-                      </div>
-                    </a>
-                    <a
-                      className="dropdown-item d-flex align-items-center"
-                      href="#"
-                    >
-                      <div className="mr-3">
-                        <div className="icon-circle bg-primary">
-                          <i className="fas fa-book text-white" />
-                        </div>
-                      </div>
-                      <div>
-                        <div className="small text-gray-500">
-                          December 12, 2019
-                        </div>
-                        <span className="font-weight-bold">
-                          Python Course is arrived!!
-                        </span>
-                      </div>
-                    </a>
-                    <a
-                      className="dropdown-item d-flex align-items-center"
-                      href="#"
-                    >
-                      <div className="mr-3">
-                        <div className="icon-circle bg-primary">
-                          <i className="fas fa-book text-white" />
-                        </div>
-                      </div>
-                      <div>
-                        <div className="small text-gray-500">
-                          December 12, 2019
-                        </div>
-                        <span className="font-weight-bold">
-                          Machine Learning Course is arrived!!
-                        </span>
-                      </div>
-                    </a>
-                    <a
-                      className="dropdown-bs-item text-center small text-gray-500"
-                      href="#"
-                    >
-                      Show All Alerts
-                    </a>
-                  </div>
-                </li>
+                
                 {/* Nav Item - Messages */}
-                <li className="nav-item dropdown no-arrow mx-1">
-                  <a
-                    className="nav-link dropdown-toggle"
-                    href="#"
-                    id="messagesDropdown"
-                    role="button"
-                    data-bs-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                  >
-                    <i className="fas fa-cart-arrow-down fa-fw" />
-                    {/* Counter - Messages */}
-                    <span className="badge badge-danger badge-counter">7</span>
-                  </a>
-                  {/* Dropdown - Messages */}
-                  <div
-                    className="dropdown-list dropdown-menu dropdown-menu-end shadow animated--grow-in"
-                    aria-labelledby="messagesDropdown"
-                  >
-                    <h6 className="dropdown-header">Cart</h6>
-                    <a
-                      className="dropdown-item d-flex align-items-center"
-                      href="#"
-                    >
-                      <div className="dropdown-list-image mr-3">
-                        <img
-                          className="rounded-circle"
-                          src="{{asset('./assets/Cpp.png')}}"
-                          alt="..."
-                        />
-                      </div>
-                      <div className="font-weight-bold">
-                        <div className="text-truncate">C++ for Dummies</div>
-                        <div className="small text-gray-500">
-                          by Joshua Puniwan · 58m
-                        </div>
-                        <div className="small text-gray-500">Rp 1.500.000</div>
-                      </div>
-                    </a>
-                    <a
-                      className="dropdown-item text-center small text-gray-500"
-                      href="#"
-                    >
-                      More Cart
-                    </a>
-                  </div>
-                </li>
-                <div className="topbar-divider d-none d-sm-block" />
                 {/* Nav Item - User Information */}
-                <li className="nav-item dropdown no-arrow">
+                <li className="nav-item dropdown d-flex align-items-start">
                   <a
                     className="nav-link dropdown-toggle"
                     href="#"
@@ -385,14 +256,9 @@ const DashboardAdmin = () => {
                   </a>
                   {/* Dropdown - User Information */}
                   <div
-                    className="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                    className="dropdown-menu dropdown-menu-center  shadow animated--grow-in"
                     aria-labelledby="userDropdown"
                   >
-                    <a className="dropdown-item" href="{{url('profil')}}">
-                      <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400" />
-                      Profile
-                    </a>
-                    <div className="dropdown-divider" />
                     <a
                       className="dropdown-item"
                       href="#"

@@ -67,7 +67,8 @@ body {
   color: #858796;
   text-align: left;
   background-color: #fff;
-  display: flex;
+  display: block;
+  overflow-y: scroll;
 }
 
 [tabindex="-1"]:focus:not(:focus-visible) {
@@ -4104,6 +4105,7 @@ input[type="button"].btn-block {
 
 .navbar {
   position: relative;
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
