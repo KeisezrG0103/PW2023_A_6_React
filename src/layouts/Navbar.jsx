@@ -39,12 +39,11 @@ const Navbar_User = () => {
 
   const { data, error, isLoading, refetch } = useGetUserLoggedInQuery();
 
- 
   useEffect(() => {
     if (data && data.user) {
       dispatch(updatePembelian(data.user.id_pembelian));
     }
-  
+
     refetch();
   }, [data, dispatch]);
 
@@ -77,13 +76,11 @@ const Navbar_User = () => {
             <Nav.Link as={Link} to={item.path} key={index}>
               {item.name === "Subscribe" ? (
                 user?.id_pembelian == 0 || user?.id_pembelian == null ? (
-                  <Button variant="danger" onClick={handleShow}>
+                  <Button variant="primary" onClick={handleShow}>
                     Subscribe
                   </Button>
                 ) : (
-                  <Button variant="danger" disabled>
-                    Subscribe
-                  </Button>
+                  null
                 )
               ) : (
                 <span
@@ -103,7 +100,11 @@ const Navbar_User = () => {
               Hai ,<strong> {name}</strong>
             </p>
             <NavDropdown.Divider />
-            <NavDropdown.Item href="#action3">Profile</NavDropdown.Item>
+            <NavDropdown.Item>
+              <Link to="/user/profile" className="nav-link text-dark ">
+                Profile
+              </Link>
+            </NavDropdown.Item>
             <NavDropdown.Divider />
             <NavDropdown.Item href="#action5">
               <Button variant="danger" onClick={logout}>

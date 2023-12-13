@@ -30,8 +30,9 @@ const Login = () => {
         navigate("/admin/dashboard");
       }
     } catch (error) {
-      dispatch(authFail(error.response.message));
-      toast.error(error.response.message);
+      toast.error("Login Failed")
+      dispatch(authFail(error.errors.message));
+      
     }
   };
 

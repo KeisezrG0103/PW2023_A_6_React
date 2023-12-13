@@ -6,7 +6,7 @@ const UserLayout = () => {
   return (
     <>
       <Navbar_User />
-      <div className="bg-body-tertiary">
+      <div>
         <Outlet />
       </div>
     </>

@@ -29,6 +29,7 @@ const User_Category = () => {
   console.log(find);
 
   return (
+    <div className="bg-body-tertiary" style={{ minHeight: "100vh" }}>
     <Container fluid className="mt-5 pt-5">
       <Card>
         <Card.Body>
@@ -48,9 +49,9 @@ const User_Category = () => {
           </div>
         ) : null}
 
-        <div className="my-2 w-100">
+        <div className="my-2 w-100 d-flex flex-wrap justify-content-center h-100">
           {data?.kursus.map((item, index) => (
-            <Card key={index} className="" style={{ width: "18rem" }}>
+            <Card key={index} className="m-4" style={{ width: "18rem" }}>
               <Card.Body>
                 <Card.Title>{item.title}</Card.Title>
                 <Card.Text>{item.description}</Card.Text>
@@ -65,7 +66,7 @@ const User_Category = () => {
                   className="btn btn-primary"
                   {...(id_pembelian == 0 || id_pembelian == null ? { disabled: true } : null)}
                 >
-                  <Link to={`/user/${category}/${item.id}`} className="text-white">
+                  <Link to={`/user/${category}/${item.id}`} className="text-white text-decoration-none">
                   Pelajari
                   </Link>
                 </button>
@@ -77,6 +78,7 @@ const User_Category = () => {
         {data?.kursus.length === 0 ? <h3>Belum ada data</h3> : null}
       </div>
     </Container>
+    </div>
   );
 };
 
