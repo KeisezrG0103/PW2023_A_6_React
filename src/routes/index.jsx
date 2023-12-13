@@ -17,6 +17,7 @@ import UpdateWebinar from "../pages/Admin/Webinar/UpdateWebinar";
 import Home from "../pages/User/Home";
 import UserLayout from "../layouts/UserLayout";
 import User_Category from "../pages/User/User_Category";
+import Pembelajaran_page from "../pages/User/Pembelajaran_page";
 
 const App = () => {
   const Token = useSelector((state) => state.auth.token);
@@ -35,6 +36,7 @@ const App = () => {
           <Route path="/user" element={<UserLayout/>} >
             <Route path="/user/home" element={<Home />} />
             <Route path= "/user/:kategori" element={<User_Category />} />
+            <Route path="/user/:kategori/:id" element={<Pembelajaran_page />} />
 
           </Route> 
         </Route>

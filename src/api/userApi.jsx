@@ -1,7 +1,6 @@
 import { URL, ADMIN, USER, DELETE_USER } from "../constant/uri";
 import { fetchBaseQuery, createApi } from "@reduxjs/toolkit/query/react";
 
-
 export const Token = localStorage.getItem("Token");
 
 export const getUser = createApi({
@@ -40,8 +39,17 @@ export const getUser = createApi({
       }),
     }),
 
+    getUserLoggedIn: builder.query({
+      query: () => ({
+        url: "/user",
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${Token}`,
+        },
+      }),
+    }),
   }),
 });
 
-export const { useGetUserQuery, useDeleteUserMutation } = getUser;
+export const { useGetUserQuery, useDeleteUserMutation, useGetUserLoggedInQuery } = getUser;
 export default getUser;

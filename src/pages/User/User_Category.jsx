@@ -4,7 +4,8 @@ import { Container, Card } from "react-bootstrap";
 import { useGetKursusByBahasaQuery } from "../../api/kursusApi";
 import { Spinner } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 const User_Category = () => {
   const param = useParams();
   const category = param.kategori;
@@ -62,10 +63,11 @@ const User_Category = () => {
               <Card.Footer className="text-end">
                 <button
                   className="btn btn-primary"
-                  {...(id_pembelian === 0 ? { disabled: true } : null)}
+                  {...(id_pembelian == 0 || id_pembelian == null ? { disabled: true } : null)}
                 >
-                  {" "}
-                  Enroll{" "}
+                  <Link to={`/user/${category}/${item.id}`} className="text-white">
+                  Pelajari
+                  </Link>
                 </button>
               </Card.Footer>
             </Card>

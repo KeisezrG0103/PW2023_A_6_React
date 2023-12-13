@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Navbar,
   Container,
@@ -11,16 +11,42 @@ import { IoPerson } from "react-icons/io5";
 import { Link, useLocation } from "react-router-dom";
 import { authLogout } from "../slicers/auth/auth_slice";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import ModalSubscription from "../pages/User/ModalSubscription";
+import { useGetUserLoggedInQuery } from "../api/userApi";
+import { updatePembelian } from "../slicers/auth/auth_slice";
+import toast from "react-hot-toast";
 
 const Navbar_User = () => {
+  const { user } = useSelector((state) => state.auth);
+  const name = user.username;
+
+  console.log(user);
+
+  const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   const logout = () => {
     dispatch(authLogout());
     navigate("/");
   };
+
+  const { data, error, isLoading, refetch } = useGetUserLoggedInQuery();
+
+ 
+  useEffect(() => {
+    if (data && data.user) {
+      dispatch(updatePembelian(data.user.id_pembelian));
+    }
+  
+    refetch();
+  }, [data, dispatch]);
 
   const Route = [
     {
@@ -28,19 +54,13 @@ const Navbar_User = () => {
       path: "/user/home",
     },
     {
-      name: "Subscribe",
-      path: "/user/subscribe",
-    },
-    {
       name: "My Webinar",
       path: "/user/mywebinar",
     },
     {
-      name: "My Learning",
-      path: "/user/mylearning",
+      name: "Subscribe",
     },
   ];
-
   return (
     <Navbar
       expand="lg"
@@ -54,15 +74,24 @@ const Navbar_User = () => {
       <Navbar.Collapse id="navbarScroll" className="px-4">
         <Nav className="ms-auto mx-2" navbarScroll>
           {Route.map((item, index) => (
-            <Nav.Link
-              as={Link}
-              to={item.path}
-              key={index}
-              className={`text-light mx-2 ${
-                location.pathname === item.path ? "active-link" : ""
-              }`}
-            >
-              {item.name}
+            <Nav.Link as={Link} to={item.path} key={index}>
+              {item.name === "Subscribe" ? (
+                user?.id_pembelian == 0 || user?.id_pembelian == null ? (
+                  <Button variant="danger" onClick={handleShow}>
+                    Subscribe
+                  </Button>
+                ) : (
+                  <Button variant="danger" disabled>
+                    Subscribe
+                  </Button>
+                )
+              ) : (
+                <span
+                  className={location.pathname === item.path ? "active" : ""}
+                >
+                  {item.name}
+                </span>
+              )}
             </Nav.Link>
           ))}
           <NavDropdown
@@ -70,6 +99,10 @@ const Navbar_User = () => {
             id="navbarScrollingDropdown"
             align={{ lg: "end" }}
           >
+            <p className="text-center">
+              Hai ,<strong> {name}</strong>
+            </p>
+            <NavDropdown.Divider />
             <NavDropdown.Item href="#action3">Profile</NavDropdown.Item>
             <NavDropdown.Divider />
             <NavDropdown.Item href="#action5">
@@ -80,6 +113,9 @@ const Navbar_User = () => {
           </NavDropdown>
         </Nav>
       </Navbar.Collapse>
+      {show ? (
+        <ModalSubscription show={show} handleClose={handleClose} />
+      ) : null}
     </Navbar>
   );
 };

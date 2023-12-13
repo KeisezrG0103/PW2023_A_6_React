@@ -6,6 +6,7 @@ import { kursusApi } from '../api/kursusApi';
 import { persistReducer, persistStore, FLUSH , REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
 import storageSession from 'redux-persist/lib/storage/session';
 import webinarApi from '../api/webinarApi';
+import subscribeApi from '../api/subscriptionApi';
 
 const persistConfig = {
   key: 'root',
@@ -21,12 +22,14 @@ export const store = configureStore({
     [getUser.reducerPath]: getUser.reducer,
     [kursusApi.reducerPath]: kursusApi.reducer,
     [webinarApi.reducerPath]: webinarApi.reducer,
+    [subscribeApi.reducerPath]: subscribeApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
       getUser.middleware,
       kursusApi.middleware,
       webinarApi.middleware,
+      subscribeApi.middleware,
     ),
 });
 
