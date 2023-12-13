@@ -38,10 +38,13 @@ const authSlice = createSlice({
         updatePembelian: (state, action) => {
             state.user.id_pembelian = action.payload;
         },
+        updateProfile: (state, action) => {
+            state.user = action.payload;
+        },
     },
 });
 
-export const { authStart, authSuccess, authFail, authLogout, clearError, updatePembelian } =
+export const { authStart, authSuccess, authFail, authLogout, clearError, updatePembelian,updateProfile } =
     authSlice.actions;
 
     export default authSlice.reducer;

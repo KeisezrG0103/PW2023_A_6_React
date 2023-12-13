@@ -48,8 +48,19 @@ export const getUser = createApi({
         },
       }),
     }),
+
+    updateUser: builder.mutation({
+      query: (data) => ({
+        url: `/user`,
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${Token}`,
+        },
+        body: data,
+      }),
+    }),
   }),
 });
 
-export const { useGetUserQuery, useDeleteUserMutation, useGetUserLoggedInQuery } = getUser;
+export const { useGetUserQuery, useDeleteUserMutation, useGetUserLoggedInQuery, useUpdateUserMutation } = getUser;
 export default getUser;

@@ -1,18 +1,10 @@
-import React, { useEffect } from "react";
-import {
-  Navbar,
-  Container,
-  Nav,
-  NavDropdown,
-  Form,
-  Button,
-} from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { Navbar, Nav, NavDropdown, Button } from "react-bootstrap";
 import { IoPerson } from "react-icons/io5";
 import { Link, useLocation } from "react-router-dom";
 import { authLogout } from "../slicers/auth/auth_slice";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
 import ModalSubscription from "../pages/User/ModalSubscription";
 import { useGetUserLoggedInQuery } from "../api/userApi";
 import { updatePembelian } from "../slicers/auth/auth_slice";
@@ -60,6 +52,7 @@ const Navbar_User = () => {
       name: "Subscribe",
     },
   ];
+
   return (
     <Navbar
       expand="lg"
@@ -73,15 +66,20 @@ const Navbar_User = () => {
       <Navbar.Collapse id="navbarScroll" className="px-4">
         <Nav className="ms-auto mx-2" navbarScroll>
           {Route.map((item, index) => (
-            <Nav.Link as={Link} to={item.path} key={index}>
+            <Nav.Link
+              as={Link}
+              to={item.path}
+              key={index}
+              onClick={() =>
+                item.name === "Subscribe" && user?.id_pembelian === 0
+                  ? handleShow()
+                  : null
+              }
+            >
               {item.name === "Subscribe" ? (
-                user?.id_pembelian == 0 || user?.id_pembelian == null ? (
-                  <Button variant="primary" onClick={handleShow}>
-                    Subscribe
-                  </Button>
-                ) : (
-                  null
-                )
+                user?.id_pembelian === 0 || user?.id_pembelian == null ? (
+                  "Subscribe"
+                ) : null
               ) : (
                 <span
                   className={location.pathname === item.path ? "active" : ""}
@@ -106,7 +104,7 @@ const Navbar_User = () => {
               </Link>
             </NavDropdown.Item>
             <NavDropdown.Divider />
-            <NavDropdown.Item href="#action5">
+            <NavDropdown.Item>
               <Button variant="danger" onClick={logout}>
                 Logout
               </Button>
