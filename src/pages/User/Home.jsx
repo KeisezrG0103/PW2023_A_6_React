@@ -6,6 +6,8 @@ import { useGetWebinarQuery } from "../../api/webinarApi";
 import { Spinner } from "react-bootstrap";
 import { useState } from "react";
 import { Pagination } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -13,6 +15,7 @@ const Home = () => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
   const { data, error, isLoading, refetch } = useGetWebinarQuery();
+  const navigate = useNavigate();
 
   const [currentPage, setCurrentPage] = useState(1);
   const [webinarPerPage, setWebinarPerPage] = useState(5);
@@ -45,6 +48,8 @@ const Home = () => {
     return index === hoveredIndex ? "scale(1.2)" : "scale(1)";
   };
 
+
+
   return (
     <>
       <Container fluid className="mt-5 pt-5">
@@ -64,7 +69,7 @@ const Home = () => {
                   key={index}
                   style={{ width: "12rem", cursor: "pointer" }}
                   className="m-3"
-                  onClick={() => console.log(`Card clicked: ${item.name}`)}
+                  onClick={() => navigate(`/user/${item.name}`)}
                 >
                   <Card.Body key={index}>
                     <Card.Title>{item.name}</Card.Title>
@@ -78,7 +83,7 @@ const Home = () => {
         </Card>
       </Container>
 
-      <Container fluid className="mt-5 pt-5">
+      <Container fluid className="mt-2 pt-5">
         <Card>
           <Card.Body>
             <Card.Title>Webinar</Card.Title>
@@ -108,15 +113,14 @@ const Home = () => {
                         aspectRatio: "1/1",
                         display: "flex",
                         flexDirection: "column",
-                        alignItems: "center", // Center horizontally
-                        justifyContent: "center", // Center vertically
+                        alignItems: "center", 
+                        justifyContent: "center", 
                       }}
                     >
                       <Card.Title>{webinar.title}</Card.Title>
                       <Card.Img
                         variant="top"
                         src={webinar.thumbnail}
-                        // aspect ratio 1:3
                         style={{
                           width: "100%",
                           height: "100%",

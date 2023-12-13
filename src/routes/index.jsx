@@ -16,6 +16,7 @@ import CreateWebinar from "../pages/Admin/Webinar/CreateWebinar";
 import UpdateWebinar from "../pages/Admin/Webinar/UpdateWebinar";
 import Home from "../pages/User/Home";
 import UserLayout from "../layouts/UserLayout";
+import User_Category from "../pages/User/User_Category";
 
 const App = () => {
   const Token = useSelector((state) => state.auth.token);
@@ -33,6 +34,7 @@ const App = () => {
         <Route path="/user" element={<ProtectedRoutes token={Token} />}>
           <Route path="/user" element={<UserLayout/>} >
             <Route path="/user/home" element={<Home />} />
+            <Route path= "/user/:kategori" element={<User_Category />} />
 
           </Route> 
         </Route>

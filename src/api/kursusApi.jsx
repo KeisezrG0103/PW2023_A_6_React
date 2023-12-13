@@ -63,10 +63,20 @@ export const kursusApi = createApi({
         body: data,
       }),
     }),
+
+    getKursusByBahasa: builder.query({
+      query: (bahasa) => ({
+        url: `${KURSUS}/search/${bahasa}`,
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${Token}`,
+        },
+      }),
+    }),
   }),
 });
 
-export const { useGetKursusQuery, useDeleteKursusMutation, useCreateKursusMutation, useGetKursusByIdQuery, useUpdateKursusMutation } = kursusApi;
+export const { useGetKursusQuery, useDeleteKursusMutation, useCreateKursusMutation, useGetKursusByIdQuery, useUpdateKursusMutation, useGetKursusByBahasaQuery } = kursusApi;
 
 export default kursusApi;
 
