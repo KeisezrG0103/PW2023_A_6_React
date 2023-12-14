@@ -9,4 +9,4 @@ export const LOGOUT = "/logout";
 export const SUBSCRIBE = "/subscribe";
 export const KURSUS = "/kursus";
 export const WEBINAR = "/webinar";
-
+export const WEBINAR_USER = "/webinar/user";

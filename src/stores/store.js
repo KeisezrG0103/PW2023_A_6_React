@@ -7,6 +7,7 @@ import { persistReducer, persistStore, FLUSH , REHYDRATE, PAUSE, PERSIST, PURGE,
 import storageSession from 'redux-persist/lib/storage/session';
 import webinarApi from '../api/webinarApi';
 import subscribeApi from '../api/subscriptionApi';
+import webinarUserApi from '../api/ikutWebinar'; 
 
 const persistConfig = {
   key: 'root',
@@ -23,6 +24,7 @@ export const store = configureStore({
     [kursusApi.reducerPath]: kursusApi.reducer,
     [webinarApi.reducerPath]: webinarApi.reducer,
     [subscribeApi.reducerPath]: subscribeApi.reducer,
+    [webinarUserApi.reducerPath]: webinarUserApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
@@ -30,6 +32,7 @@ export const store = configureStore({
       kursusApi.middleware,
       webinarApi.middleware,
       subscribeApi.middleware,
+      webinarUserApi.middleware,
     ),
 });
 
