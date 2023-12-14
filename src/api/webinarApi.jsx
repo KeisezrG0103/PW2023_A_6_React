@@ -1,6 +1,6 @@
 import { Token } from "./userApi";
 import { fetchBaseQuery, createApi } from "@reduxjs/toolkit/query/react";
-import { URL, WEBINAR, WEBINAR_USER } from "../constant/uri";
+import { URL, WEBINAR,WEBINAR_USER } from "../constant/uri";
 
 export const webinarApi = createApi({
   reducerPath: "webinarApi",
@@ -19,7 +19,6 @@ export const webinarApi = createApi({
   tagTypes: ["Webinar"],
 
   endpoints: (builder) => ({
-    
     getWebinar: builder.query({
       query: () => ({
         url: WEBINAR,
@@ -71,6 +70,8 @@ export const webinarApi = createApi({
         },
       }),
     }),
+
+
   }),
 });
 

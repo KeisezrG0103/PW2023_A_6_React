@@ -1,4 +1,4 @@
-import { URL, ADMIN, USER, DELETE_USER } from "../constant/uri";
+import { URL,USER, DELETE_USER } from "../constant/uri";
 import { fetchBaseQuery, createApi } from "@reduxjs/toolkit/query/react";
 
 export const Token = localStorage.getItem("Token");

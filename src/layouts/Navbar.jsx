@@ -46,7 +46,7 @@ const Navbar_User = () => {
     },
     {
       name: "My Webinar",
-      path: "/user/mywebinar",
+      path: "/user/mywebinar/:id",
     },
     {
       name: "Subscribe",
@@ -68,7 +68,11 @@ const Navbar_User = () => {
           {Route.map((item, index) => (
             <Nav.Link
               as={Link}
-              to={item.path}
+              to={
+                item.path && item.path.includes(":id")
+                  ? item.path.replace(":id", user.id)
+                  : item.path
+              }
               key={index}
               onClick={() =>
                 item.name === "Subscribe" && user?.id_pembelian === 0
@@ -89,6 +93,7 @@ const Navbar_User = () => {
               )}
             </Nav.Link>
           ))}
+
           <NavDropdown
             title={<IoPerson />}
             id="navbarScrollingDropdown"

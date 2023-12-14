@@ -9,8 +9,6 @@ import { Pagination } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-
-
 const Home = () => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
@@ -47,8 +45,6 @@ const Home = () => {
   const getTransform = (index) => {
     return index === hoveredIndex ? "scale(1.2)" : "scale(1)";
   };
-
-
 
   return (
     <>
@@ -113,8 +109,8 @@ const Home = () => {
                         aspectRatio: "1/1",
                         display: "flex",
                         flexDirection: "column",
-                        alignItems: "center", 
-                        justifyContent: "center", 
+                        alignItems: "center",
+                        justifyContent: "center",
                       }}
                     >
                       <Card.Title>{webinar.title}</Card.Title>
@@ -129,7 +125,12 @@ const Home = () => {
                       />
                     </Card.Body>
                     <Card.Footer className="d-flex justify-content-center my-4">
-                      <Button variant="primary">Detail</Button>
+                      <Link
+                        to={`/user/webinar/${webinar.id}`}
+                        className="text-white text-decoration-none"
+                      >
+                        <Button variant="primary">Detail</Button>
+                      </Link>
                     </Card.Footer>
                   </Card>
                 ))}
@@ -137,7 +138,6 @@ const Home = () => {
             )}
           </div>
 
-          {/* Pagination */}
           <div className="d-flex justify-content-center my-2">
             {nPage > 1 && (
               <Pagination>

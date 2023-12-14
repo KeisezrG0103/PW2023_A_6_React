@@ -33,7 +33,6 @@ const AllUser = () => {
 
   if (isUninitialized) return null;
 
-  // if(isUninitialized) return null;
   const DeleteUser = async (id) => {
     try {
       await mutate(id);

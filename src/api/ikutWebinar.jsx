@@ -20,14 +20,15 @@ export const webinarUserApi = createApi({
 
   endpoints: (builder) => ({
     getWebinarUser: builder.query({
-      query: () => ({
-        url: WEBINAR_USER,
+      query: (id) => ({
+        url: `${WEBINAR_USER}/${id}`,
         method: "GET",
         headers: {
           Authorization: `Bearer ${Token}`,
         },
       }),
     }),
+
     createWebinarUser: builder.mutation({
       query: (data) => ({
         url: WEBINAR_USER,
@@ -38,10 +39,23 @@ export const webinarUserApi = createApi({
         body: data,
       }),
     }),
+
+    isRegistered: builder.query({
+      query: (id_user, id_webinar) => ({
+        url: `${WEBINAR_USER}/${id_user}/${id_webinar}`,
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${Token}`,
+        },
+      }),
+    }),
   }),
 });
 
-export const { useGetWebinarUserQuery, useCreateWebinarUserMutation } =
-  webinarUserApi;
+export const {
+  useGetWebinarUserQuery,
+  useCreateWebinarUserMutation,
+  useIsRegisteredQuery,
+} = webinarUserApi;
 
 export default webinarUserApi;
