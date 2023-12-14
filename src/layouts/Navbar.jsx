@@ -31,13 +31,15 @@ const Navbar_User = () => {
 
   const { data, error, isLoading, refetch } = useGetUserLoggedInQuery();
 
+  console.log(data);
+
   useEffect(() => {
     if (data && data.user) {
       dispatch(updatePembelian(data.user.id_pembelian));
     }
 
     refetch();
-  }, [data, dispatch]);
+  }, [data, dispatch, refetch]);
 
   const Route = [
     {
@@ -81,7 +83,7 @@ const Navbar_User = () => {
               }
             >
               {item.name === "Subscribe" ? (
-                user?.id_pembelian === 0 || user?.id_pembelian == null ? (
+                data?.user.id_pembelian == 0 || data?.user.id_pembelian == null ? (
                   "Subscribe"
                 ) : null
               ) : (
