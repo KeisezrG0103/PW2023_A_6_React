@@ -21,11 +21,16 @@ import Pembelajaran_page from "../pages/User/Pembelajaran_page";
 import UpdateProfile from "../pages/User/UpdateProfile";
 import WebinarDetail from "../pages/User/WebinarDetail";
 import My_webinar from "../pages/User/my_webinar";
+import { useEffect } from "react";
+import AdminProtectedRoutes from "./AdminProtection";
 
 const App = () => {
   const Token = useSelector((state) => state.auth.token);
+  const user = useSelector((state) => state.auth.user);
+
 
   localStorage.setItem("Token", Token);
+
 
   return (
     <BrowserRouter>
@@ -46,7 +51,7 @@ const App = () => {
           </Route> 
         </Route>
 
-        <Route path="/admin" element={<ProtectedRoutes token={Token} />}>
+        <Route path="/admin" element={<AdminProtectedRoutes token={Token} isAdmin={user?.role} />}>
           <Route path="/admin" element={<DashboardAdmin />}>
             <Route path="/admin/dashboard" element={<AllUser />} />
             <Route path="/admin/kursus" element={<Index_Kursus />} />

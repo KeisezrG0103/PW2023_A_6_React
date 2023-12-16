@@ -1,16 +1,18 @@
 import React, { useEffect } from "react";
 import { Card } from "react-bootstrap";
-import { Form, Button, Row, Col } from "react-bootstrap";
+import { Form, Button, Row, Col, Image } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useUpdateUserMutation } from "../../api/userApi";
 import { updateProfile } from "../../slicers/auth/auth_slice";
 import { useNavigate } from "react-router-dom";
+import { IoPerson } from "react-icons/io5";
+import { useGetUserLoggedInQuery } from "../../api/userApi";
+import { Spinner } from "react-bootstrap";
 
 const UpdateProfile = () => {
-  const { user } = useSelector((state) => state.auth);
-
+  const { data, error, isLoading, refetch } = useGetUserLoggedInQuery();
   const {
     register,
     handleSubmit,
@@ -24,7 +26,6 @@ const UpdateProfile = () => {
     { data: dataUpdate, error: errorUpdate, isLoading: isLoadingUpdate },
   ] = useUpdateUserMutation();
 
-  console.log(dataUpdate);
 
   const Education = [
     {
@@ -66,19 +67,35 @@ const UpdateProfile = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   useEffect(() => {
-    setValue("username", user.username);
-    setValue("email", user.email);
-    setValue("password", user.password);
-    setValue("education", user.education);
-    setValue("coding_experience", user.coding_experience);
-  }, [setValue, user]);
+    setValue("username", data?.user.username);
+    setValue("email", data?.user.email);
+    setValue("password", data?.user.password);
+    setValue("education", data?.user.education);
+    setValue("coding_experience", data?.user.coding_experience);
+    setValue("photo", data?.user.photo);
+
+    refetch();
+  }, [setValue, data,refetch]);
 
   const onSubmit = async (data) => {
+    const formData = new FormData();
+
+    formData.append("username", data.username);
+    formData.append("email", data.email);
+    formData.append("password", data.password);
+    formData.append("education", data.education);
+    formData.append("coding_experience", data.coding_experience);
+    formData.append("photo", data.photo[0]);
+    formData.append("_method", "PUT");
+
     try {
-      const updatedData = await updateUser(data).unwrap();
-        
-    dispatch(updateProfile(updatedData.data));
+      console.log(data);
+
+      const updatedData = await updateUser(formData).unwrap();
+
+      dispatch(updateProfile(updatedData.data));
 
       toast.success("Update Profile Success");
 
@@ -92,14 +109,18 @@ const UpdateProfile = () => {
         Object.keys(errorMessages).forEach((field) => {
           setError(field, {
             type: "manual",
-            message: errorMessages[field][0], // Assuming your error messages are in an array
+            message: errorMessages[field][0],
           });
         });
       }
     }
   };
 
-  return (
+  return isLoading ? (
+    <div className="d-flex justify-content-center mt-3">
+      <Spinner animation="border" role="status"></Spinner>
+    </div>
+  ) : (
     <div style={{ minHeight: "100vh" }}>
       <div className="mt-5 pt-5 mx-4 bg-body-light">
         <div className="d-flex justify-content-center">
@@ -111,12 +132,33 @@ const UpdateProfile = () => {
             <Card.Header>Update Profile</Card.Header>
             <Card.Body>
               <Form onSubmit={handleSubmit(onSubmit)}>
+                <div className="d-flex justify-content-center">
+                  <Image
+                    src={
+                      data?.user?.photo == undefined
+                        ? "https://www.pngkey.com/png/full/114-1149878_setting-user-avatar-in-specific-size-without-breaking.png"
+                        : data?.user?.photo
+                    }
+                    roundedCircle
+                    style={{ width: "100px", height: "100px" }}
+                    onClick={() => document.getElementById("file_up").click()}
+                  />
+
+                  <input
+                    type="file"
+                    id="file_up"
+                    accept="image/*"
+                    style={{ display: "none" }}
+                    {...register("photo")}
+                  />
+                </div>
+
                 <Form.Group controlId="username" className="mb-3">
                   <Form.Label>Username</Form.Label>
                   <Form.Control
                     type="text"
                     {...register("username")}
-                    defaultValue={user.username}
+                    defaultValue={data?.user.username}
                     className={`form-control ${
                       errors.username ? "is-invalid" : ""
                     }`}
@@ -133,7 +175,7 @@ const UpdateProfile = () => {
                   <Form.Control
                     type="email"
                     {...register("email")}
-                    defaultValue={user.email}
+                    defaultValue={data?.user.email}
                     className={`form-control ${
                       errors.email ? "is-invalid" : ""
                     }`}
@@ -155,12 +197,11 @@ const UpdateProfile = () => {
                 </Form.Group>
                 <Row>
                   <Col>
+                    <Form.Label>Education</Form.Label>
 
-                  <Form.Label>Education</Form.Label>    
-                  
                     <Form.Select
                       aria-label="education"
-                      defaultValue={user.education}
+                      defaultValue={data?.user.education.id}
                       {...register("education")}
                       className={`form-select ${
                         errors.education ? "is-invalid" : ""
@@ -184,7 +225,7 @@ const UpdateProfile = () => {
                     <Form.Label>Coding Experience</Form.Label>
                     <Form.Select
                       aria-label="coding_experience"
-                      defaultValue={user.coding_experience}
+                      defaultValue={data?.user.coding_experience.id}
                       className={`form-select ${
                         errors.coding_experience ? "is-invalid" : ""
                       }`}

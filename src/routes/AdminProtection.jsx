@@ -1,9 +1,9 @@
 import { Outlet, Navigate } from "react-router-dom";
 
-const ProtectedRoutes = ({ token, isUser }) => {
-  if (!token) {
+const AdminProtectedRoutes = ({ token, isAdmin }) => {
+  if (isAdmin == "user" || !token) {
     // If there's no token, navigate to the root ("/") route
-    return <Navigate to="/" />;
+    return <Navigate to="/user/home" />;
   }
 
 
@@ -11,4 +11,4 @@ const ProtectedRoutes = ({ token, isUser }) => {
   return <Outlet />;
 };
 
-export default ProtectedRoutes;
+export default AdminProtectedRoutes;

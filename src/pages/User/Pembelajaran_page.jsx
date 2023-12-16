@@ -8,10 +8,6 @@ import { Row } from "react-bootstrap";
 const Pembelajaran_page = () => {
   const { id } = useParams();
   const { data, error, isLoading, refetch } = useGetKursusByIdQuery(id);
-
-  console.log(id);
-  console.log(data);
-
   return (
     <div className="bg-body-tertiary" style={{ minHeight: "100vh" }}>
       <div className="mt-5 pt-5 mx-4">

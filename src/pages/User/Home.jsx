@@ -32,7 +32,6 @@ const Home = () => {
     setCurrentPage(selectedPage);
   };
 
-  console.log(data);
 
   const handleMouseEnter = (index) => {
     setHoveredIndex(index);
@@ -99,9 +98,6 @@ const Home = () => {
                     key={index}
                     style={{ width: "12rem", cursor: "pointer" }}
                     className="m-3"
-                    onClick={() =>
-                      console.log(`Card clicked: ${webinar.title}`)
-                    }
                   >
                     <Card.Body
                       key={index}

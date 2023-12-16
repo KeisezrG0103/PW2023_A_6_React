@@ -6,16 +6,13 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import toast from "react-hot-toast";
 
-const ModalSubscription = ({show, handleClose}) => {
+const ModalSubscription = ({show, handleClose, id}) => {
 
   const [postSubscribe, { data, isLoading, error }] = usePostSubscribeMutation();
 
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch(); 
 
-  const id = user.id;
-
-  console.log(id);
 
 
   const handleSubs = () => {

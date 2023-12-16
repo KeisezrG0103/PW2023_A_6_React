@@ -38,7 +38,7 @@ const CreateUpdateKursus = () => {
       setValue("bahasa_pemrograman", data.kursus.bahasa_pemrograman);
       setValue("content", data.kursus.content);
     }
-  }, [data, setValue]);
+  }, [data, setValue, refetch]);
 
   const onSubmit = async (data) => {
     const formData = new FormData();

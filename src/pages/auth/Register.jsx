@@ -11,10 +11,11 @@ import {
 } from "../../slicers/auth/register_slice.jsx";
 import { Navigate } from "react-router-dom";
 import toast from "react-hot-toast";
-
+import { useNavigate } from "react-router-dom";
 const Register = () => {
   const [showToast, setShowToast] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const Education = [
     {
@@ -74,7 +75,9 @@ const Register = () => {
       .then((response) => {
         dispatch(registerSuccess(response.data));
         toast.success(response.message);
-        setShowToast(true);
+
+        navigate("/");
+        
       })
       .catch((error) => {
         dispatch(registerFail(error.response.data));

@@ -52,7 +52,7 @@ export const getUser = createApi({
     updateUser: builder.mutation({
       query: (data) => ({
         url: `/user`,
-        method: "PUT",
+        method: "POST",
         headers: {
           Authorization: `Bearer ${Token}`,
         },

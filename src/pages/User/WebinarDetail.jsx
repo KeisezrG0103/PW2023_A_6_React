@@ -6,12 +6,16 @@ import { useCreateWebinarUserMutation } from "../../api/ikutWebinar";
 import { useIsRegisteredQuery } from "../../api/ikutWebinar";
 import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
+import { useGetUserLoggedInQuery } from "../../api/userApi";
 
 const WebinarDetail = () => {
   const params = useParams();
   const id = parseInt(params.id);
 
-  const { user } = useSelector((state) => state.auth);
+  const selector = useSelector((state) => state.auth.user);
+
+  const { data: dataUser, error: errorUser, isLoading: isLoadingUser } =
+    useGetUserLoggedInQuery();
 
   const [isRegistered, setIsRegistered] = useState(false);
 
@@ -22,7 +26,7 @@ const WebinarDetail = () => {
   const onSubmit = async () => {
     const data_Daftar = {
       id_webinar: data.webinar.id,
-      id_user: user.id,
+      id_user: dataUser?.user.id,
     };
 
     try {
@@ -35,11 +39,7 @@ const WebinarDetail = () => {
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-      await refetch();
-    };
-
-    fetchData();
+    refetch();
   }, [refetch]);
 
   return (
