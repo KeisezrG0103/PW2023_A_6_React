@@ -79,7 +79,7 @@ const Home = () => {
       </Container>
 
       <Container fluid className="mt-2 pt-5">
-        <Card>
+        <Card className="my-4">
           <Card.Body>
             <Card.Title>Webinar</Card.Title>
           </Card.Body>
