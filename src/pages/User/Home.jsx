@@ -32,7 +32,6 @@ const Home = () => {
     setCurrentPage(selectedPage);
   };
 
-
   const handleMouseEnter = (index) => {
     setHoveredIndex(index);
   };

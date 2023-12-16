@@ -20,7 +20,7 @@ import User_Category from "../pages/User/User_Category";
 import Pembelajaran_page from "../pages/User/Pembelajaran_page";
 import UpdateProfile from "../pages/User/UpdateProfile";
 import WebinarDetail from "../pages/User/WebinarDetail";
-import My_webinar from "../pages/User/my_webinar";
+import My_webinar from "../pages/User/My_webinar";
 import { useEffect } from "react";
 import AdminProtectedRoutes from "./AdminProtection";
 
