@@ -33,7 +33,7 @@ const ModalSubscription = ({show, handleClose, id}) => {
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Modal heading</Modal.Title>
+        <Modal.Title>Subscription</Modal.Title>
       </Modal.Header>
       <Modal.Body>Subscribe our Education ?</Modal.Body>
       <Modal.Footer>

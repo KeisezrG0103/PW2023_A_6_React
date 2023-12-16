@@ -47,7 +47,7 @@ const Login = () => {
             <input
               type="text"
               className="form-control rounded-left"
-              placeholder="email"
+              placeholder="Email"
               name="email"
               required
               {...register("email")}
