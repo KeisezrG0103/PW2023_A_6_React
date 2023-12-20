@@ -89,7 +89,6 @@ const Navbar_User = () => {
                   }
                 >
                   {item.name === "Subscribe" ? (
-                    user_selector?.user.id_pembelian == 0 ||
                    user_selector?.user.id_pembelian == null ? (
                       "Subscribe"
                     ) : null

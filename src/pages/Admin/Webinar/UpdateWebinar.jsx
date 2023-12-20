@@ -14,12 +14,13 @@ const UpdateWebinar = () => {
   
   const id = useParams().id;
 
-  const { data, isLoading: isLoadingGetKursusById } = useGetWebinarByIdQuery(id);
+  const { data, isLoading: isLoadingGetKursusById, refetch } = useGetWebinarByIdQuery(id);
 
   console.log(data?.webinar);
 
 
   useEffect(() => {
+    refetch();
     if (data?.webinar) {
       setValue("title", data.webinar.title);
       setValue("pengisi_acara", data.webinar.pengisi_acara);
@@ -27,7 +28,9 @@ const UpdateWebinar = () => {
       setValue("content", data.webinar.content);
       setValue("thumbnail", data.webinar.thumbnail);
     }
-  }, [data, setValue]);
+    
+
+  }, [data, setValue,refetch]);
 
 
   const [mutate, { isLoading }] = useUpdateWebinarMutation();
