@@ -8,11 +8,25 @@ import { useUpdateUserMutation } from "../../api/userApi";
 import { updateProfile } from "../../slicers/auth/auth_slice";
 import { useNavigate } from "react-router-dom";
 import { IoPerson } from "react-icons/io5";
-import { useGetUserLoggedInQuery } from "../../api/userApi";
+import {
+  useGetUserLoggedInQuery,
+  useGetUserByIdQuery,
+} from "../../api/userApi";
 import { Spinner } from "react-bootstrap";
 
 const UpdateProfile = () => {
-  const { data, error, isLoading, refetch } = useGetUserLoggedInQuery();
+  // const { data, error, isLoading, refetch, isUninitialized } = useGetUserLoggedInQuery();
+
+  const data_selector = useSelector((state) => state.auth.user);
+  const {
+    data,
+    error: errorUser,
+    isLoading,
+    refetch,
+  } = useGetUserByIdQuery(data_selector.id);
+
+  console.log(data);
+
   const {
     register,
     handleSubmit,
@@ -25,7 +39,6 @@ const UpdateProfile = () => {
     updateUser,
     { data: dataUpdate, error: errorUpdate, isLoading: isLoadingUpdate },
   ] = useUpdateUserMutation();
-
 
   const Education = [
     {
@@ -69,33 +82,42 @@ const UpdateProfile = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    setValue("username", data?.user.username);
-    setValue("email", data?.user.email);
-    setValue("password", data?.user.password);
-    setValue("education", data?.user.education);
-    setValue("coding_experience", data?.user.coding_experience);
-    setValue("photo", data?.user.photo);
-
+    if (data_selector) {
+      setValue("username", data?.user?.username || "");
+      setValue("email", data?.user?.email || "");
+      setValue("password", data?.user?.password || "");
+      setValue(
+        "education",
+        data?.user?.education ? data?.user?.education.id : ""
+      );
+      setValue(
+        "coding_experience",
+        data?.user?.coding_experience ? data?.user?.coding_experience.id : ""
+      );
+      setValue("photo", data?.user?.photo || "");
+    }
     refetch();
-  }, [setValue, data,refetch]);
+  }, [setValue, data_selector, refetch, data]);
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data_) => {
     const formData = new FormData();
 
-    formData.append("username", data.username);
-    formData.append("email", data.email);
-    formData.append("password", data.password);
-    formData.append("education", data.education);
-    formData.append("coding_experience", data.coding_experience);
-    formData.append("photo", data.photo[0]);
+    formData.append("username", data_.username);
+    formData.append("email", data_.email);
+    formData.append("password", data_.password);
+    formData.append("photo", data_.photo[0] || data.user.photo);
     formData.append("_method", "PUT");
+
+    formData.append("education", data_.education || data.user.education);
+    formData.append(
+      "coding_experience",
+      data_.coding_experience || data.user.coding_experience
+    );
 
     try {
       console.log(data);
 
       const updatedData = await updateUser(formData).unwrap();
-
-      dispatch(updateProfile(updatedData.data));
 
       toast.success("Update Profile Success");
 
@@ -115,6 +137,14 @@ const UpdateProfile = () => {
       }
     }
   };
+
+  const get_id_edu = Education.find(
+    (item) => item.name === data_selector.education
+  );
+
+  // if(error){
+  //   return window.location.reload(false)
+  // }
 
   return isLoading ? (
     <div className="d-flex justify-content-center mt-3">
@@ -158,7 +188,7 @@ const UpdateProfile = () => {
                   <Form.Control
                     type="text"
                     {...register("username")}
-                    defaultValue={data?.user.username}
+                    defaultValue={data?.user?.username}
                     className={`form-control ${
                       errors.username ? "is-invalid" : ""
                     }`}
@@ -175,7 +205,7 @@ const UpdateProfile = () => {
                   <Form.Control
                     type="email"
                     {...register("email")}
-                    defaultValue={data?.user.email}
+                    defaultValue={data?.user?.email}
                     className={`form-control ${
                       errors.email ? "is-invalid" : ""
                     }`}
@@ -201,15 +231,16 @@ const UpdateProfile = () => {
 
                     <Form.Select
                       aria-label="education"
-                      defaultValue={data?.user.education.id}
+                      defaultValue={data?.user?.education}
                       {...register("education")}
                       className={`form-select ${
                         errors.education ? "is-invalid" : ""
                       }`}
                     >
-                      <option value="">Education</option>
+                      <option value="">{data?.user?.education}</option>
+
                       {Education.map((item) => (
-                        <option key={item.id} value={item.id}>
+                        <option key={item.id} value={item.name}>
                           {item.name}
                         </option>
                       ))}
@@ -225,15 +256,15 @@ const UpdateProfile = () => {
                     <Form.Label>Coding Experience</Form.Label>
                     <Form.Select
                       aria-label="coding_experience"
-                      defaultValue={data?.user.coding_experience.id}
+                      defaultValue={data?.user?.coding_experience}
                       className={`form-select ${
                         errors.coding_experience ? "is-invalid" : ""
                       }`}
                       {...register("coding_experience")}
                     >
-                      <option value="">Coding Experience</option>
+                      <option value="">{data?.user?.coding_experience}</option>
                       {CodingExperience.map((item) => (
-                        <option key={item.id} value={item.id}>
+                        <option key={item.id} value={item.name}>
                           {item.name}
                         </option>
                       ))}

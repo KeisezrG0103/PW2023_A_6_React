@@ -6,7 +6,7 @@ import { authLogout } from "../slicers/auth/auth_slice";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import ModalSubscription from "../pages/User/ModalSubscription";
-import { useGetUserLoggedInQuery } from "../api/userApi";
+import { useGetUserLoggedInQuery,useGetUserByIdQuery } from "../api/userApi";
 import { updatePembelian } from "../slicers/auth/auth_slice";
 import toast from "react-hot-toast";
 import { FaBook } from "react-icons/fa";
@@ -16,6 +16,11 @@ const Navbar_User = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
+  const user = useSelector((state) => state.auth.user);
+
+  const {user_selector} = useGetUserLoggedInQuery(user?.id);
+
+  
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -44,8 +49,11 @@ const Navbar_User = () => {
   ];
 
   useEffect(() => {
-    refetch();
-  }, [data, dispatch, refetch]);
+    const fetchData = async () => {
+      refetch();
+    }
+    fetchData();
+  }, [refetch]);
 
   return (
     <>
@@ -102,10 +110,6 @@ const Navbar_User = () => {
                 id="navbarScrollingDropdown"
                 align={{ lg: "end" }}
               >
-                <p className="text-center">
-                  Hai ,<strong> {data?.user.username}</strong>
-                </p>
-                <NavDropdown.Divider />
                 <NavDropdown.Item>
                   <Link to="/user/profile" className="nav-link text-dark ">
                     Profile

@@ -8,9 +8,13 @@ import { useState } from "react";
 import { Pagination } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Home = () => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
+  const user_selector = useSelector((state) => state.auth.user);
+
+  localStorage.setItem("id", user_selector.id);
 
   const { data, error, isLoading, refetch } = useGetWebinarQuery();
   const navigate = useNavigate();

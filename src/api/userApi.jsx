@@ -46,6 +46,7 @@ export const getUser = createApi({
         headers: {
           Authorization: `Bearer ${Token}`,
         },
+        providesTags : ["User"]
       }),
     }),
 
@@ -59,8 +60,20 @@ export const getUser = createApi({
         body: data,
       }),
     }),
+
+    getUserById: builder.query({
+      query: (id) => ({
+        url: `get_user/${id}`,
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${Token}`,
+        },
+
+        providesTags: ["User"],
+      })
+    }),
   }),
 });
 
-export const { useGetUserQuery, useDeleteUserMutation, useGetUserLoggedInQuery, useUpdateUserMutation } = getUser;
+export const { useGetUserQuery, useDeleteUserMutation, useGetUserLoggedInQuery, useUpdateUserMutation, useGetUserByIdQuery } = getUser;
 export default getUser;
