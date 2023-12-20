@@ -18,7 +18,7 @@ const Navbar_User = () => {
   const [show, setShow] = useState(false);
   const user = useSelector((state) => state.auth.user);
 
-  const {user_selector} = useGetUserLoggedInQuery(user.id);
+  const {user_selector, refetch: userRefetch} = useGetUserLoggedInQuery(user.id);
 
   
 
@@ -53,7 +53,8 @@ const Navbar_User = () => {
       refetch();
     }
     fetchData();
-  }, [refetch]);
+    userRefetch();
+  }, [refetch, userRefetch]);
 
   return (
     <>

@@ -102,7 +102,14 @@ const UpdateProfile = () => {
     const formData = new FormData();
 
     formData.append("username", data_.username || data?.user.username);
-    formData.append("email", data_.email || data?.user.email);
+    // formData.append("email", data_.email || data?.user.email);
+
+    if (data_.email) {
+      formData.append("email", data_.email);
+    }
+
+    
+
     formData.append("photo", data_.photo[0] || data?.user.photo);
     formData.append("_method", "PUT");
 

@@ -53,7 +53,6 @@ const Index = () => {
       toast.success("Kursus Deleted Successfully", {
         duration: 3000,
       });
-      // Refetch the kursus data after deletion
       refetch();
     } catch (error) {
       console.log(error);
