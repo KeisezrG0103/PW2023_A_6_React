@@ -85,7 +85,6 @@ const UpdateProfile = () => {
     if (data_selector) {
       setValue("username", data?.user?.username || "");
       setValue("email", data?.user?.email || "");
-      setValue("password", data?.user?.password || "");
       setValue(
         "education",
         data?.user?.education ? data?.user?.education.id : ""
@@ -102,18 +101,18 @@ const UpdateProfile = () => {
   const onSubmit = async (data_) => {
     const formData = new FormData();
 
-    formData.append("username", data_.username || data.user.username);
-    formData.append("email", data_.email || data.user.email);
-    formData.append("password", data_.password || data.user.password);
-    formData.append("photo", data_.photo[0] || data.user.photo);
+    formData.append("username", data_.username || data?.user.username);
+    formData.append("email", data_.email || data?.user.email);
+    formData.append("photo", data_.photo[0] || data?.user.photo);
     formData.append("_method", "PUT");
 
-    formData.append("education", data_.education || data.user.education);
+    formData.append("education", data_.education || data?.user.education);
     formData.append(
       "coding_experience",
-      data_.coding_experience || data.user.coding_experience
+      data_.coding_experience || data?.user.coding_experience
     );
 
+    console.log(data_);
     try {
       console.log(data);
 
@@ -138,13 +137,7 @@ const UpdateProfile = () => {
     }
   };
 
-  const get_id_edu = Education.find(
-    (item) => item.name === data_selector.education
-  );
 
-  // if(error){
-  //   return window.location.reload(false)
-  // }
 
   return isLoading ? (
     <div className="d-flex justify-content-center mt-3">
@@ -217,14 +210,6 @@ const UpdateProfile = () => {
                   )}
                 </Form.Group>
 
-                <Form.Group controlId="password" className="mb-3">
-                  <Form.Label>Password</Form.Label>
-                  <Form.Control
-                    type="password"
-                    {...register("password")}
-                    placeholder="Password"
-                  />
-                </Form.Group>
                 <Row>
                   <Col>
                     <Form.Label>Education</Form.Label>

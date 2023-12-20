@@ -18,7 +18,7 @@ const Navbar_User = () => {
   const [show, setShow] = useState(false);
   const user = useSelector((state) => state.auth.user);
 
-  const {user_selector} = useGetUserLoggedInQuery(user?.id);
+  const {user_selector} = useGetUserLoggedInQuery(user.id);
 
   
 
@@ -89,8 +89,8 @@ const Navbar_User = () => {
                   }
                 >
                   {item.name === "Subscribe" ? (
-                    data?.user.id_pembelian == 0 ||
-                    data?.user.id_pembelian == null ? (
+                    user_selector?.user.id_pembelian == 0 ||
+                   user_selector?.user.id_pembelian == null ? (
                       "Subscribe"
                     ) : null
                   ) : (

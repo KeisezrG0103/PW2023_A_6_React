@@ -14,8 +14,6 @@ const Home = () => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const user_selector = useSelector((state) => state.auth.user);
 
-  localStorage.setItem("id", user_selector.id);
-
   const { data, error, isLoading, refetch } = useGetWebinarQuery();
   const navigate = useNavigate();
 
