@@ -26,7 +26,13 @@ const User_Category = () => {
 
   useEffect(() => {
     setId_pembelian(dataUser.user.id_pembelian);
-  }, [dataUser]);
+
+    if(isLoadingUser){
+      setId_pembelian(0);
+    }
+
+    refetch();
+  }, [dataUser, refetch,isLoadingUser]);
 
   const find = bahasaPemrograman.filter((item) => item.name === category);
 

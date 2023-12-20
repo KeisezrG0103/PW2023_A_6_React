@@ -102,9 +102,9 @@ const UpdateProfile = () => {
   const onSubmit = async (data_) => {
     const formData = new FormData();
 
-    formData.append("username", data_.username);
-    formData.append("email", data_.email);
-    formData.append("password", data_.password);
+    formData.append("username", data_.username || data.user.username);
+    formData.append("email", data_.email || data.user.email);
+    formData.append("password", data_.password || data.user.password);
     formData.append("photo", data_.photo[0] || data.user.photo);
     formData.append("_method", "PUT");
 
