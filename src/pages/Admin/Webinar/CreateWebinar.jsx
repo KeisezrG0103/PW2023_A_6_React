@@ -88,7 +88,7 @@ const CreateWebinar = () => {
     <div>
       <Card>
         <Card.Header>
-          <strong>Create Kursus</strong>
+          <strong>Create Webinar</strong>
         </Card.Header>
         <Card.Body>
           <Form onSubmit={handleSubmit(onSubmit)}>

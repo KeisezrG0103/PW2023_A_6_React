@@ -121,3 +121,21 @@
     position: absolute;
     
  }
+
+  @font-face {
+      font-family: poppinsB;
+      src: url(../assets/Poppins-Bold.ttf);
+  }
+
+  .poppinsB {
+      font-family: poppinsB;
+  }
+
+  @font-face {
+      font-family: poppins;
+      src: url(../assets/Poppins-Regular.ttf);
+  }
+
+  .poppins {
+      font-family: poppins;
+  }

@@ -9,7 +9,7 @@ const Pembelajaran_page = () => {
   const { id } = useParams();
   const { data, error, isLoading, refetch } = useGetKursusByIdQuery(id);
   return (
-    <div className="bg-body-tertiary" style={{ minHeight: "100vh" }}>
+    <div className="bg-body-tertiary poppins" style={{ minHeight: "100vh" }}>
       <div className="mt-5 pt-5 mx-4">
         <Card className="mx-auto">
           {isLoading ? (

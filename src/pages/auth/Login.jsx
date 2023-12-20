@@ -41,9 +41,9 @@ const Login = () => {
         <div className="icon d-flex align-items-center justify-content-center">
           <span className="fa fa-user-o"></span>
         </div>
-        <h3 className="text-center mb-4">Login</h3>
+        <h3 className="text-center mb-4 poppinsB">Login</h3>
         <form className="login-form" onSubmit={handleSubmit(onSubmit)}>
-          <div className="form-group my-4">
+          <div className="form-group my-4 poppins">
             <input
               type="text"
               className="form-control rounded-left"
@@ -53,7 +53,7 @@ const Login = () => {
               {...register("email")}
             />
           </div>
-          <div className="form-group d-flex">
+          <div className="form-group d-flex poppins">
             <input
               type="password"
               className="form-control rounded-left"
@@ -64,15 +64,17 @@ const Login = () => {
             />
           </div>
           <div className="form-group d-md-flex my-3">
-            <div className="w-50 text-md-right">
-              <Link to="/register" className="forgot-pass">
+            <div className="w-50 text-md-right d-md-flex">
+              <p className="mb-0 mr-2 poppins">Belum Punya akun?</p>
+              <Link to="/register" className="forgot-pass poppins">
                 Register
               </Link>
             </div>
           </div>
+
           <button
             type="submit"
-            className="btn btn-primary rounded submit p-3 px-5 my-4 w-100"
+            className="btn btn-primary rounded submit p-3 px-5 my-4 w-100 poppins"
           >
             Login
           </button>

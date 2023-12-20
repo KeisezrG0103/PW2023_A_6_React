@@ -91,10 +91,10 @@ const Register = () => {
         <div className="icon d-flex align-items-center justify-content-center">
           <IoPersonCircle size={100} />
         </div>
-        <h3 className="text-center mb-4">Register</h3>
+        <h3 className="text-center mb-4 poppinsB">Register</h3>
         <form className="row g-3" onSubmit={handleSubmit(onSubmit)}>
           <div className="col-md-6">
-            <label className="form-label text-light">Username</label>
+            <label className="form-label text-light poppins">Username</label>
             <input
               type="text"
               className={`form-control ${errors.username ? "is-invalid" : ""}`}
@@ -119,7 +119,7 @@ const Register = () => {
             )}
           </div>
           <div className="col-md-6">
-            <label className="form-label text-light">Email</label>
+            <label className="form-label text-light poppins">Email</label>
             <input
               type="Email"
               className={`form-control ${errors.email ? "is-invalid" : ""}`}
@@ -138,7 +138,7 @@ const Register = () => {
             )}
           </div>
           <div className="col-12">
-            <label className="form-label text-light">Password</label>
+            <label className="form-label text-light poppins">Password</label>
             <input
               type="Password"
               className={`form-control ${errors.password ? "is-invalid" : ""}`}
@@ -163,7 +163,7 @@ const Register = () => {
             )}
           </div>
           <div className="col-md-6">
-            <label className="form-label text-light">Education</label>
+            <label className="form-label text-light poppins">Education</label>
             <select
               className={`form-select ${errors.education ? "is-invalid" : ""}`}
               id="inputEducation"
@@ -181,7 +181,7 @@ const Register = () => {
             </div>
           </div>
           <div className="col-md-6">
-            <label className="form-label text-light">Coding Experience</label>
+            <label className="form-label text-light poppins">Coding Experience</label>
             <select
               className={`form-select ${
                 errors.coding_experience ? "is-invalid" : ""
@@ -202,7 +202,7 @@ const Register = () => {
           </div>
 
           <div className="col-12">
-            <button type="submit" className="btn btn-primary">
+            <button type="submit" className="btn btn-primary poppins">
               Sign in
             </button>
           </div>

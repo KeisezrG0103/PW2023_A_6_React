@@ -19,7 +19,7 @@ const Navbar_Landing = () => {
     <div>
       <Navbar expand="lg" className="bg-transparent">
         <Container fluid>
-          <Navbar.Brand as={Link} to="#" className="text-light">
+          <Navbar.Brand as={Link} to="#" className="text-light poppinsB fs-3">
             Education
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll" />
@@ -29,7 +29,7 @@ const Navbar_Landing = () => {
               style={{ maxHeight: "100px" }}
               navbarScroll
             ></Nav>
-            <Nav className="ml-auto">
+            <Nav className="ml-auto poppinsB">
               {routes.map((item, index) => (
                 <Nav.Link
                   as={Link}

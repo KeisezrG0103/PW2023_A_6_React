@@ -31,7 +31,7 @@ const User_Category = () => {
   const find = bahasaPemrograman.filter((item) => item.name === category);
 
   return (
-    <div className="bg-body-tertiary" style={{ minHeight: "100vh" }}>
+    <div className="bg-body-tertiary poppins" style={{ minHeight: "100vh" }}>
       <Container fluid className="mt-5 pt-5">
         <Card>
           <Card.Body>

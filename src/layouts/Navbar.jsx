@@ -9,6 +9,7 @@ import ModalSubscription from "../pages/User/ModalSubscription";
 import { useGetUserLoggedInQuery } from "../api/userApi";
 import { updatePembelian } from "../slicers/auth/auth_slice";
 import toast from "react-hot-toast";
+import { FaBook } from "react-icons/fa";
 
 const Navbar_User = () => {
   const dispatch = useDispatch();
@@ -60,10 +61,10 @@ const Navbar_User = () => {
           fixed="top"
           className="shadow-sm"
         >
-          <Navbar.Brand className="px-4">EDUKASI</Navbar.Brand>
+          <Navbar.Brand className="px-4 poppinsB"><FaBook className="mr-2" />Edukasi</Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll" className="px-4">
-            <Nav className="ms-auto mx-2" navbarScroll>
+            <Nav className="ms-auto mx-2 poppinsB" navbarScroll>
               {Route.map((item, index) => (
                 <Nav.Link
                   as={Link}

@@ -133,7 +133,7 @@ const DashboardAdmin = () => {
             </h6>
           </div>
           {/* Nav Item - Pages Collapse Menu */}
-          <li className="nav-item">
+          <li className="nav-item poppinsB">
             <Link className="nav-link" to="/admin/dashboard">
               <div>
                 <IoPerson width={50} height={50} className="mx-4" />
@@ -142,7 +142,7 @@ const DashboardAdmin = () => {
             </Link>
           </li>
           {/* Nav Item - Utilities Collapse Menu */}
-          <li className="nav-item">
+          <li className="nav-item poppinsB">
             <Link className="nav-link" to="/admin/kursus">
               <img
                 width={30}
@@ -155,7 +155,7 @@ const DashboardAdmin = () => {
             </Link>
           </li>
 
-          <li className="nav-item">
+          <li className="nav-item poppinsB">
             <Link className="nav-link" to="/admin/webinar">
               <img
                 width={30}
@@ -205,7 +205,7 @@ const DashboardAdmin = () => {
                     aria-haspopup="true"
                     aria-expanded="false"
                   >
-                    <span className="mr-2 d-none d-lg-inline text-gray-600 small">
+                    <span className="mr-2 d-none d-lg-inline text-gray-600 small poppinsB">
                       {user.username}
                     </span>
                     <img

@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { Card, Button, Spinner } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
+
 const MyWebinar = () => {
   const { id } = useParams();
   const { data, error, isLoading, refetch } = useGetWebinarUserQuery(id);
@@ -22,8 +23,8 @@ const MyWebinar = () => {
   
 
   return (
-    <div className="my-5 pt-5 mx-4">
-      <h1>Webinar yang telah terdaftar</h1>
+    <div className="my-5 pt-5 mx-4 poppinsB">
+      <h2>Webinar yang telah terdaftar</h2>
 
       <div className="d-flex flex-wrap justify-content-center my-2">
         {isLoading ? (

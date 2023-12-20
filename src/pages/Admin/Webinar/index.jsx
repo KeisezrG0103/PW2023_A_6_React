@@ -73,7 +73,7 @@ const Index = () => {
             <thead>
               <tr>
                 <th>No</th>
-                <th>thumbnail</th>
+                <th>Thumbnail</th>
                 <th>Title</th>
                 <th>Pengisi Acara</th>
                 <th>Tanggal</th>

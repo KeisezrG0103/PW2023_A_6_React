@@ -46,7 +46,7 @@ const Home = () => {
 
   return (
     <>
-      <Container fluid className="mt-5 pt-5">
+      <Container fluid className="mt-5 pt-5 poppinsB">
         <Card>
           <Card.Body>
             <Card.Title>Course Category</Card.Title>
@@ -77,7 +77,7 @@ const Home = () => {
         </Card>
       </Container>
 
-      <Container fluid className="mt-2 pt-5">
+      <Container fluid className="mt-2 pt-5 poppinsB">
         <Card className="my-4">
           <Card.Body>
             <Card.Title>Webinar</Card.Title>

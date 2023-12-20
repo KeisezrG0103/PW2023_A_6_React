@@ -121,7 +121,7 @@ const UpdateProfile = () => {
       <Spinner animation="border" role="status"></Spinner>
     </div>
   ) : (
-    <div style={{ minHeight: "100vh" }}>
+    <div className="poppins" style={{ minHeight: "100vh" }}>
       <div className="mt-5 pt-5 mx-4 bg-body-light">
         <div className="d-flex justify-content-center">
           <Card

@@ -21,14 +21,14 @@ const Carousel_Custom = () => {
         </Carousel.Item>
         <Carousel.Item>
           <img
-            src="https://www.its.ac.id/tgeofisika/wp-content/uploads/sites/33/2023/04/Poster-Webinar-Manajemen-Resiko-Longsor-1.png"
+            src="https://feb.unila.ac.id/wp-content/uploads/2020/05/FEB-WEBINAR-poster.png"
             className="d-block w-100"
             alt="..."
           />
         </Carousel.Item>
         <Carousel.Item>
           <img
-            src="https://www.its.ac.id/tgeofisika/wp-content/uploads/sites/33/2023/04/Poster-Webinar-Manajemen-Resiko-Longsor-1.png"
+            src="https://grafologiindonesia.com/wp-content/uploads/2023/01/Poster-Webinar-CHA.jpg"
             className="d-block w-100"
             alt="..."
           />
