@@ -91,7 +91,7 @@ const Home = () => {
                 <span className="visually-hidden">Loading...</span>
               </Spinner>
             ) : error ? (
-              window.location.reload(false)
+              window.location.reload()
             ) : (
               <>
                 {currentWebinar.map((webinar, index) => (
